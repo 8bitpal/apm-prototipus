@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics=""><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&amp;family=Archivo:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><style>*{box-sizing:border-box}body{margin:0;background:#DED8C9;font-family:Archivo,system-ui,sans-serif;color:#1E2A22;-webkit-font-smoothing:antialiased}a{color:#2F5D3A}a:hover{color:#C4572B}img{display:block}</style></helmet>
+
+<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:0 0 60px">
+
+  <div style="width:100%;background:#1E2A22;color:#F6F2E9;padding:8px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:50">
+    <span style="font:600 9px/1 Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8FAF98">Prototip navegable</span>
+    <span style="font-size:11.5px;color:rgba(246,242,233,.6)">{{ crumb }}</span>
+    <div style="margin-left:auto;display:flex;background:rgba(246,242,233,.12);border-radius:999px;padding:3px">
+      <button onClick="{{ setDesktop }}" style="padding:5px 13px;border-radius:999px;border:none;cursor:pointer;font:500 11px Archivo,sans-serif;background: {{ dBg }};color: {{ dFg }}">Escriptori</button>
+      <button onClick="{{ setMobile }}" style="padding:5px 13px;border-radius:999px;border:none;cursor:pointer;font:500 11px Archivo,sans-serif;background: {{ mBg }};color: {{ mFg }}">Mòbil</button>
+    </div>
+  </div>
+
+  <div style="width: {{ frameW }};max-width:100%;margin: {{ frameM }};background:#F6F2E9;border-radius: {{ frameR }};overflow:hidden;box-shadow:0 18px 50px rgba(30,42,34,.18)">
+
+    <div style="background:#2F5D3A;color:#F6F2E9;padding:8px 20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:11.5px;letter-spacing:.01em">
+      <span>Cicle 12 obert · tanca dimecres a les 22 h</span>
+      <span style="opacity:.72">Recollida divendres · 4 punts al Montseny</span>
+    </div>
+
+    <div style="padding:14px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;border-bottom:1px solid rgba(30,42,34,.12);background:#F6F2E9;position:sticky;top:37px;z-index:20">
+      <div onClick="{{ goHome }}" style="cursor:pointer;font:500 23px/1 Newsreader,serif;letter-spacing:-.01em;white-space:nowrap">Mercat del Montseny</div>
+      <div style="display:flex;gap:16px;align-items:center;font-size:13px;color:#3D4A40;flex-wrap:wrap">
+        <span onClick="{{ goCatalog }}" style="cursor:pointer">Productes</span>
+        <span onClick="{{ goProducers }}" style="cursor:pointer">Productors</span>
+        <span style="cursor:pointer;color:#7A7466">Punts de recollida</span>
+        <span style="cursor:pointer;color:#7A7466">El projecte</span>
+      </div>
+      <div onClick="{{ goCart }}" style="margin-left:auto;cursor:pointer;background:#1E2A22;color:#F6F2E9;padding:8px 16px;border-radius:999px;font-size:12px;display:flex;gap:8px;align-items:center;white-space:nowrap">
+        <span>Cistella</span><span style="background:#C4572B;border-radius:999px;padding:1px 7px;font-size:11px">{{ cartCount }}</span><span style="opacity:.7">{{ cartTotal }}</span>
+      </div>
+    </div>
+
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="position:relative;background:#1E2A22">
+          <img src="https://castanyadeviladrau.cat/assets/images/gallery/banner-parc-natural-1920.jpg" alt="" style="width:100%;height:340px;object-fit:cover;opacity:.62">
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:34px 28px;background:linear-gradient(to top,rgba(20,28,22,.82),rgba(20,28,22,.05) 65%)">
+            <span style="font:600 9.5px/1 Archivo,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#9CBFA6;margin-bottom:12px"><br></span>
+            <h1 style="margin:0;font:400 40px/1.06 Newsreader,serif;color:#F6F2E9;max-width:16em;letter-spacing:-.015em;text-wrap:pretty">El millor del Montseny</h1>
+            <p style="margin:14px 0 20px;font-size:14px;line-height:1.55;color:rgba(246,242,233,.8);max-width:34em;text-wrap:pretty">Compra a quinze productors del parc en una sola comanda.</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button onClick="{{ goCatalog }}" style="border:none;cursor:pointer;background:#F6F2E9;color:#1E2A22;padding:12px 22px;border-radius:999px;font:500 13px Archivo,sans-serif">Veure el mercat</button>
+              <button onClick="{{ goProducers }}" style="cursor:pointer;background:transparent;color:#F6F2E9;border:1px solid rgba(246,242,233,.5);padding:12px 22px;border-radius:999px;font:500 13px Archivo,sans-serif">Conèixer els productors</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding:26px 20px 6px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+          <h2 style="margin:0;font:400 22px/1 Newsreader,serif">Per categoria</h2>
+          <span onClick="{{ goCatalog }}" style="cursor:pointer;font-size:12px;color:#2F5D3A">Tot el catàleg →</span>
+        </div>
+        <div style="padding:14px 20px 4px;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px">
+          <sc-for list="{{ cats }}" as="c" hint-placeholder-count="10">
+            <div onClick="{{ c.go }}" style="cursor:pointer;background:#fff;border:1px solid rgba(30,42,34,.1);border-left:5px solid {{ c.color }};border-radius:3px 11px 11px 3px;padding:13px 14px">
+              <div style="font:400 16px/1.15 Newsreader,serif">{{ c.name }}</div>
+              <div style="font-size:11px;color:#7A7466;margin-top:5px">{{ c.n }} productes · {{ c.np }} productors</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="padding:30px 20px 6px"><h2 style="margin:0;font:400 22px/1 Newsreader,serif">Novetats del cicle</h2></div>
+        <div style="padding:14px 20px 4px;display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:16px">
+          <sc-for list="{{ featured }}" as="p" hint-placeholder-count="5">
+            <div style="background:#fff;border:1px solid rgba(30,42,34,.1);border-left:5px solid {{ p.color }};border-radius:3px 12px 12px 3px;overflow:hidden;display:flex;flex-direction:column">
+              <div onClick="{{ p.open }}" style="cursor:pointer;aspect-ratio:1/1;position:relative;background:repeating-linear-gradient(135deg,#E7E0D0 0 7px,#DED6C4 7px 14px);display:flex;align-items:center;justify-content:center;padding:10px">
+                <span style="font:400 9.5px/1.5 ui-monospace,Menlo,monospace;color:#8A8271;text-align:center;white-space:pre-line">{{ p.ph }}</span>
+                <sc-if value="{{ p.img }}" hint-placeholder-val="{{ true }}"><img src="{{ p.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></sc-if>
+              </div>
+              <div style="padding:11px 12px 13px;display:flex;flex-direction:column;gap:6px;flex:1">
+                <div onClick="{{ p.openProd }}" style="cursor:pointer;display:flex;align-items:center;gap:6px">
+                  <span style="width:15px;height:15px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font:700 7.5px/1 Archivo,sans-serif;color:#fff;background: {{ p.color }}">{{ p.mono }}</span>
+                  <span style="font-size:10px;letter-spacing:.02em;color:#6E6A5E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ p.prod }}</span>
+                </div>
+                <div onClick="{{ p.open }}" style="cursor:pointer;font:400 14.5px/1.25 Newsreader,serif;flex:1;text-wrap:pretty">{{ p.name }}</div>
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <span style="font:600 13px/1 Archivo,sans-serif">{{ p.price }}</span>
+                  <button onClick="{{ p.add }}" style="border:none;cursor:pointer;background:#2F5D3A;color:#fff;width:27px;height:27px;border-radius:50%;font-size:15px;line-height:1">+</button>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="margin:34px 20px 24px;background:#1E2A22;border-radius:14px;padding:24px;color:#F6F2E9">
+          <div style="font:600 9.5px/1 Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#9CBFA6">Com funciona</div>
+          <div style="margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px">
+            <div><div style="font:400 17px/1.2 Newsreader,serif">Dilluns a dimecres</div><p style="margin:6px 0 0;font-size:12px;line-height:1.55;color:rgba(246,242,233,.7)">La botiga és oberta. Omples una cistella amb productes de tants productors com vulguis.</p></div>
+            <div><div style="font:400 17px/1.2 Newsreader,serif">Dijous</div><p style="margin:6px 0 0;font-size:12px;line-height:1.55;color:rgba(246,242,233,.7)">Cada productor rep la llista del que ha de collir, preparar i etiquetar per a tu.</p></div>
+            <div><div style="font:400 17px/1.2 Newsreader,serif">Divendres</div><p style="margin:6px 0 0;font-size:12px;line-height:1.55;color:rgba(246,242,233,.7)">Tot arriba junt al punt de recollida que has triat. Una comanda, una factura.</p></div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isCatalog }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="padding:24px 20px 0;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
+          <div>
+            <h1 style="margin:0;font:400 30px/1 Newsreader,serif;letter-spacing:-.01em">{{ catTitle }}</h1>
+            <div style="font-size:12px;color:#7A7466;margin-top:8px">{{ catMeta }}</div>
+          </div>
+          <div style="display:flex;gap:7px;align-items:center">
+            <sc-for list="{{ visibleDots }}" as="d" hint-placeholder-count="8"><span title="{{ d.name }}" style="width:10px;height:10px;border-radius:50%;background: {{ d.color }}"></span></sc-for>
+          </div>
+        </div>
+
+        <div style="padding:18px 20px 12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <sc-for list="{{ chips }}" as="c" hint-placeholder-count="11">
+            <button onClick="{{ c.go }}" style="cursor:pointer;padding:6px 13px;border-radius:999px;font:400 12px Archivo,sans-serif;border:1px solid {{ c.border }};background: {{ c.bg }};color: {{ c.fg }}">{{ c.name }}</button>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ prodFilterOn }}" hint-placeholder-val="{{ false }}">
+          <div style="margin:0 20px 14px;display:flex;align-items:center;gap:11px;background:#fff;border:1px solid rgba(30,42,34,.12);border-left:5px solid {{ filterColor }};border-radius:3px 10px 10px 3px;padding:11px 14px">
+            <span style="width:26px;height:26px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font:700 10px/1 Archivo,sans-serif;color:#fff;background: {{ filterColor }}">{{ filterMono }}</span>
+            <span style="font-size:12.5px">Només productes de <b style="font-weight:600">{{ filterName }}</b></span>
+            <button onClick="{{ clearProd }}" style="margin-left:auto;cursor:pointer;background:none;border:1px solid rgba(30,42,34,.2);border-radius:999px;padding:4px 11px;font:400 11.5px Archivo,sans-serif;color:#3D4A40">Treure el filtre</button>
+          </div>
+        </sc-if>
+
+        <div style="padding:4px 20px 30px;display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:16px">
+          <sc-for list="{{ catalog }}" as="e" hint-placeholder-count="12">
+            <div style="grid-column: {{ e.span }}">
+              <sc-if value="{{ e.isProduct }}" hint-placeholder-val="{{ true }}">
+                <div style="height:100%;background:#fff;border:1px solid rgba(30,42,34,.1);border-left:5px solid {{ e.color }};border-radius:3px 12px 12px 3px;overflow:hidden;display:flex;flex-direction:column">
+                  <div onClick="{{ e.open }}" style="cursor:pointer;aspect-ratio:1/1;position:relative;background:repeating-linear-gradient(135deg,#E7E0D0 0 7px,#DED6C4 7px 14px);display:flex;align-items:center;justify-content:center;padding:10px">
+                    <span style="font:400 9.5px/1.5 ui-monospace,Menlo,monospace;color:#8A8271;text-align:center;white-space:pre-line">{{ e.ph }}</span>
+                    <sc-if value="{{ e.img }}" hint-placeholder-val="{{ true }}"><img src="{{ e.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></sc-if>
+                  </div>
+                  <div style="padding:11px 12px 13px;display:flex;flex-direction:column;gap:6px;flex:1">
+                    <div onClick="{{ e.openProd }}" style="cursor:pointer;display:flex;align-items:center;gap:6px">
+                      <span style="width:15px;height:15px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font:700 7.5px/1 Archivo,sans-serif;color:#fff;background: {{ e.color }}">{{ e.mono }}</span>
+                      <span style="font-size:10px;letter-spacing:.02em;color:#6E6A5E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ e.prod }}</span>
+                    </div>
+                    <div onClick="{{ e.open }}" style="cursor:pointer;font:400 14.5px/1.25 Newsreader,serif;flex:1;text-wrap:pretty">{{ e.name }}</div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+                      <span style="font:600 13px/1 Archivo,sans-serif">{{ e.price }}</span>
+                      <button onClick="{{ e.add }}" style="border:none;cursor:pointer;background:#2F5D3A;color:#fff;width:27px;height:27px;border-radius:50%;font-size:15px;line-height:1;flex:none">+</button>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ e.isEditorial }}" hint-placeholder-val="{{ false }}">
+                <div style="height:100%;background:#1E2A22;border-radius:12px;overflow:hidden;display:flex;flex-wrap:wrap;color:#F6F2E9">
+                  <div style="flex:1 1 150px;min-height:150px;position:relative;background:#2b3a30"><img src="{{ e.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+                  <div style="flex:1 1 190px;padding:17px 17px 15px;display:flex;flex-direction:column;gap:8px">
+                    <span style="font:600 9px/1 Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#9CBFA6">Coneix el productor</span>
+                    <div style="font:400 19px/1.15 Newsreader,serif;text-wrap:pretty">{{ e.name }}</div>
+                    <p style="margin:0;font-size:11.5px;line-height:1.55;color:rgba(246,242,233,.72);text-wrap:pretty">{{ e.short }}</p>
+                    <button onClick="{{ e.openProd }}" style="margin-top:auto;align-self:flex-start;cursor:pointer;background:transparent;border:none;border-bottom:1px solid rgba(246,242,233,.45);color:#F6F2E9;font:400 11.5px Archivo,sans-serif;padding:0 0 3px">Veure la granja i els seus {{ e.n }} productes →</button>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="padding:16px 20px 0;font-size:11.5px;color:#7A7466"><span onClick="{{ goCatalog }}" style="cursor:pointer">Productes</span> · <span onClick="{{ item.openProd }}" style="cursor:pointer">{{ item.prod }}</span></div>
+        <div style="padding:16px 20px 0;display:flex;gap:26px;flex-wrap:wrap;align-items:flex-start">
+          <div style="flex:1 1 300px;min-width:260px;position:relative;aspect-ratio:1/1;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(135deg,#E7E0D0 0 8px,#DED6C4 8px 16px);display:flex;align-items:center;justify-content:center;padding:16px">
+            <span style="font:400 11px/1.6 ui-monospace,Menlo,monospace;color:#8A8271;text-align:center;white-space:pre-line">{{ item.ph }}</span>
+            <sc-if value="{{ item.img }}" hint-placeholder-val="{{ true }}"><img src="{{ item.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></sc-if>
+          </div>
+          <div style="flex:1 1 320px;min-width:280px;display:flex;flex-direction:column;gap:14px">
+            <div onClick="{{ item.openProd }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:9px;align-self:flex-start;background:#fff;border:1px solid rgba(30,42,34,.12);border-left:5px solid {{ item.color }};border-radius:3px 999px 999px 3px;padding:5px 14px 5px 9px">
+              <span style="width:22px;height:22px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font:700 9px/1 Archivo,sans-serif;color:#fff;background: {{ item.color }}">{{ item.mono }}</span>
+              <span style="font-size:12px;color:#3D4A40">{{ item.prod }}</span>
+            </div>
+            <h1 style="margin:0;font:400 31px/1.1 Newsreader,serif;letter-spacing:-.01em;text-wrap:pretty">{{ item.name }}</h1>
+            <div style="font:600 22px/1 Archivo,sans-serif">{{ item.price }}</div>
+            <p style="margin:0;font-size:13.5px;line-height:1.65;color:#3D4A40;white-space:pre-line;text-wrap:pretty">{{ item.desc }}</p>
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+              <div style="display:flex;align-items:center;border:1px solid rgba(30,42,34,.2);border-radius:999px;overflow:hidden">
+                <button onClick="{{ decQty }}" style="border:none;background:none;cursor:pointer;width:36px;height:40px;font-size:16px">−</button>
+                <span style="width:28px;text-align:center;font:600 13px Archivo,sans-serif">{{ qty }}</span>
+                <button onClick="{{ incQty }}" style="border:none;background:none;cursor:pointer;width:36px;height:40px;font-size:16px">+</button>
+              </div>
+              <button onClick="{{ addQty }}" style="border:none;cursor:pointer;background:#2F5D3A;color:#fff;padding:13px 26px;border-radius:999px;font:500 13.5px Archivo,sans-serif">Afegir a la cistella</button>
+            </div>
+            <div style="font-size:11.5px;color:#7A7466;line-height:1.6">Preparat per al cicle 12 · recollida divendres al punt que triïs.<br>Aquest producte viatja al mateix lot que la resta de la teva cistella.</div>
+          </div>
+        </div>
+
+        <div style="margin:30px 20px 0;background:#fff;border:1px solid rgba(30,42,34,.12);border-left:6px solid {{ item.color }};border-radius:3px 14px 14px 3px;overflow:hidden;display:flex;flex-wrap:wrap">
+          <div style="flex:1 1 220px;min-height:200px;position:relative;background:repeating-linear-gradient(135deg,#E7E0D0 0 8px,#DED6C4 8px 16px);display:flex;align-items:center;justify-content:center;padding:14px">
+            <span style="font:400 10px/1.6 ui-monospace,Menlo,monospace;color:#8A8271;text-align:center;white-space:pre-line">retrat del productor{{ nl }}al camp o a l'obrador</span>
+            <sc-if value="{{ item.prodImg }}" hint-placeholder-val="{{ true }}"><img src="{{ item.prodImg }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></sc-if>
+          </div>
+          <div style="flex:2 1 320px;padding:22px 24px;display:flex;flex-direction:column;gap:11px">
+            <span style="font:600 9px/1 Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#7A7466">Qui l'ha fet</span>
+            <div style="font:400 24px/1.1 Newsreader,serif">{{ item.prod }}</div>
+            <p style="margin:0;font-size:13px;line-height:1.65;color:#3D4A40;text-wrap:pretty">{{ item.prodShort }}</p>
+            <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:2px">
+              <sc-for list="{{ item.tags }}" as="t" hint-placeholder-count="3"><span style="font:400 10.5px/1 Archivo,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#3D4A40;border:1px solid rgba(30,42,34,.2);border-radius:4px;padding:5px 9px">{{ t }}</span></sc-for>
+            </div>
+            <button onClick="{{ item.openProd }}" style="margin-top:6px;align-self:flex-start;cursor:pointer;background:transparent;border:1px solid #2F5D3A;color:#2F5D3A;border-radius:999px;padding:9px 18px;font:500 12px Archivo,sans-serif">Veure els {{ item.prodN }} productes de la granja</button>
+          </div>
+        </div>
+
+        <div style="padding:30px 20px 8px;font:400 20px/1 Newsreader,serif">Més de {{ item.prod }}</div>
+        <div style="padding:8px 20px 32px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px">
+          <sc-for list="{{ siblings }}" as="p" hint-placeholder-count="4">
+            <div style="background:#fff;border:1px solid rgba(30,42,34,.1);border-left:5px solid {{ p.color }};border-radius:3px 12px 12px 3px;overflow:hidden">
+              <div onClick="{{ p.open }}" style="cursor:pointer;aspect-ratio:4/3;position:relative;background:repeating-linear-gradient(135deg,#E7E0D0 0 7px,#DED6C4 7px 14px);display:flex;align-items:center;justify-content:center;padding:8px">
+                <span style="font:400 9px/1.5 ui-monospace,Menlo,monospace;color:#8A8271;text-align:center;white-space:pre-line">{{ p.ph }}</span>
+                <sc-if value="{{ p.img }}" hint-placeholder-val="{{ true }}"><img src="{{ p.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></sc-if>
+              </div>
+              <div style="padding:10px 11px 12px">
+                <div onClick="{{ p.open }}" style="cursor:pointer;font:400 13px/1.25 Newsreader,serif;min-height:2.4em;text-wrap:pretty">{{ p.name }}</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:7px"><span style="font:600 12px/1 Archivo,sans-serif">{{ p.price }}</span><button onClick="{{ p.add }}" style="border:none;cursor:pointer;background:#2F5D3A;color:#fff;width:24px;height:24px;border-radius:50%;font-size:14px;line-height:1">+</button></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isProducers }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="padding:26px 20px 0">
+          <h1 style="margin:0;font:400 30px/1 Newsreader,serif;letter-spacing:-.01em">Els productors</h1>
+          <p style="margin:10px 0 0;font-size:13px;line-height:1.6;color:#3D4A40;max-width:44em;text-wrap:pretty">Quinze granges, obradors i cellers del massís del Montseny. Cada un manté el seu nom, el seu color i la seva història dins del mercat.</p>
+        </div>
+        <div style="padding:22px 20px 34px;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px">
+          <sc-for list="{{ producerCards }}" as="r" hint-placeholder-count="15">
+            <div onClick="{{ r.open }}" style="cursor:pointer;background:#fff;border:1px solid rgba(30,42,34,.1);border-left:6px solid {{ r.color }};border-radius:3px 12px 12px 3px;overflow:hidden;display:flex;flex-direction:column">
+              <div style="height:118px;position:relative;background:repeating-linear-gradient(135deg,#E7E0D0 0 7px,#DED6C4 7px 14px);display:flex;align-items:center;justify-content:center">
+                <span style="font:400 9.5px/1.5 ui-monospace,Menlo,monospace;color:#8A8271">retrat del productor</span>
+                <sc-if value="{{ r.img }}" hint-placeholder-val="{{ true }}"><img src="{{ r.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></sc-if>
+              </div>
+              <div style="padding:13px 14px 15px;display:flex;flex-direction:column;gap:8px;flex:1">
+                <div style="display:flex;align-items:center;gap:9px">
+                  <span style="width:28px;height:28px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font:700 10.5px/1 Archivo,sans-serif;color:#fff;background: {{ r.color }}">{{ r.mono }}</span>
+                  <span style="font:400 16px/1.15 Newsreader,serif;text-wrap:pretty">{{ r.name }}</span>
+                </div>
+                <p style="margin:0;font-size:11.5px;line-height:1.55;color:#5A5648;flex:1;text-wrap:pretty">{{ r.short }}</p>
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#7A7466"><span>{{ r.cert }}</span><span>{{ r.n }} productes →</span></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isProducer }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="position:relative;background:#1E2A22">
+          <div style="height:230px;position:relative;background:repeating-linear-gradient(135deg,#3a4a3e 0 9px,#334137 9px 18px);display:flex;align-items:center;justify-content:center">
+            <span style="font:400 11px/1.6 ui-monospace,Menlo,monospace;color:rgba(246,242,233,.5)">fotografia de la finca o l'obrador</span>
+            <sc-if value="{{ who.img }}" hint-placeholder-val="{{ true }}"><img src="{{ who.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.66"></sc-if>
+          </div>
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px 20px;background:linear-gradient(to top,rgba(20,28,22,.86),rgba(20,28,22,.05) 70%)">
+            <div style="display:flex;align-items:center;gap:11px">
+              <span style="width:40px;height:40px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font:700 15px/1 Archivo,sans-serif;color:#fff;border:2px solid rgba(246,242,233,.85);background: {{ who.color }}">{{ who.mono }}</span>
+              <h1 style="margin:0;font:400 32px/1.05 Newsreader,serif;color:#F6F2E9;letter-spacing:-.015em;text-wrap:pretty">{{ who.name }}</h1>
+            </div>
+          </div>
+        </div>
+        <div style="padding:22px 20px 0;display:flex;gap:26px;flex-wrap:wrap">
+          <p style="margin:0;flex:2 1 340px;font-size:14px;line-height:1.7;color:#3D4A40;text-wrap:pretty">{{ who.long }}</p>
+          <div style="flex:1 1 210px;display:flex;flex-direction:column;gap:9px">
+            <div style="font:600 9px/1 Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#7A7466">Fitxa</div>
+            <div style="font-size:12.5px;color:#3D4A40;line-height:1.7">{{ who.town }}<br>{{ who.n }} productes al cicle 12<br>Lliurament: {{ who.logistics }}</div>
+            <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:4px">
+              <sc-for list="{{ who.tags }}" as="t" hint-placeholder-count="3"><span style="font:400 10.5px/1 Archivo,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#3D4A40;border:1px solid rgba(30,42,34,.2);border-radius:4px;padding:5px 9px">{{ t }}</span></sc-for>
+            </div>
+            <sc-if value="{{ who.web }}" hint-placeholder-val="{{ true }}"><a href="{{ who.web }}" target="_blank" rel="noopener" style="font-size:12px;margin-top:4px">{{ who.webLabel }}</a></sc-if>
+          </div>
+        </div>
+        <div style="padding:28px 20px 8px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+          <div style="font:400 21px/1 Newsreader,serif">Tot el que ven aquesta setmana</div>
+          <button onClick="{{ who.filterInCatalog }}" style="cursor:pointer;background:transparent;border:1px solid rgba(30,42,34,.25);border-radius:999px;padding:7px 15px;font:400 11.5px Archivo,sans-serif;color:#3D4A40">Filtrar el catàleg per aquesta granja</button>
+        </div>
+        <div style="padding:10px 20px 34px;display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:15px">
+          <sc-for list="{{ whoItems }}" as="p" hint-placeholder-count="6">
+            <div style="background:#fff;border:1px solid rgba(30,42,34,.1);border-left:5px solid {{ p.color }};border-radius:3px 12px 12px 3px;overflow:hidden;display:flex;flex-direction:column">
+              <div onClick="{{ p.open }}" style="cursor:pointer;aspect-ratio:1/1;position:relative;background:repeating-linear-gradient(135deg,#E7E0D0 0 7px,#DED6C4 7px 14px);display:flex;align-items:center;justify-content:center;padding:9px">
+                <span style="font:400 9px/1.5 ui-monospace,Menlo,monospace;color:#8A8271;text-align:center;white-space:pre-line">{{ p.ph }}</span>
+                <sc-if value="{{ p.img }}" hint-placeholder-val="{{ true }}"><img src="{{ p.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></sc-if>
+              </div>
+              <div style="padding:10px 11px 12px;display:flex;flex-direction:column;gap:6px;flex:1">
+                <div onClick="{{ p.open }}" style="cursor:pointer;font:400 13.5px/1.25 Newsreader,serif;flex:1;text-wrap:pretty">{{ p.name }}</div>
+                <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:600 12.5px/1 Archivo,sans-serif">{{ p.price }}</span><button onClick="{{ p.add }}" style="border:none;cursor:pointer;background:#2F5D3A;color:#fff;width:25px;height:25px;border-radius:50%;font-size:14px;line-height:1">+</button></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isCart }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:26px 20px 34px">
+        <h1 style="margin:0;font:400 30px/1 Newsreader,serif;letter-spacing:-.01em">La teva cistella</h1>
+        <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:18px;background:#fff;border:1px solid rgba(30,42,34,.12);border-radius:12px;padding:28px;text-align:center">
+            <p style="margin:0 0 16px;font-size:13.5px;color:#5A5648">Encara no hi ha res. El cicle 12 tanca dimecres a les 22 h.</p>
+            <button onClick="{{ goCatalog }}" style="border:none;cursor:pointer;background:#2F5D3A;color:#fff;padding:12px 24px;border-radius:999px;font:500 13px Archivo,sans-serif">Anar al mercat</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ cartFull }}" hint-placeholder-val="{{ true }}">
+          <div style="margin-top:8px;display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start">
+            <div style="flex:2 1 380px;min-width:300px">
+              <p style="margin:8px 0 18px;font-size:12.5px;color:#7A7466">{{ cartSummaryLine }}</p>
+              <sc-for list="{{ cartGroups }}" as="g" hint-placeholder-count="3">
+                <div style="margin-bottom:14px;background:#fff;border:1px solid rgba(30,42,34,.1);border-left:6px solid {{ g.color }};border-radius:3px 12px 12px 3px;overflow:hidden">
+                  <div style="display:flex;align-items:center;gap:10px;padding:12px 15px;background: {{ g.tint }}">
+                    <span style="width:26px;height:26px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font:700 10px/1 Archivo,sans-serif;color:#fff;background: {{ g.color }}">{{ g.mono }}</span>
+                    <span onClick="{{ g.open }}" style="cursor:pointer;font:400 16px/1.15 Newsreader,serif;flex:1;text-wrap:pretty">{{ g.name }}</span>
+                    <span style="font-size:11px;color:#5A5648;flex:none">{{ g.prepares }}</span>
+                  </div>
+                  <sc-for list="{{ g.lines }}" as="l" hint-placeholder-count="2">
+                    <div style="display:flex;align-items:center;gap:12px;padding:11px 15px;border-top:1px solid rgba(30,42,34,.08)">
+                      <div onClick="{{ l.open }}" style="cursor:pointer;width:46px;height:46px;border-radius:8px;flex:none;position:relative;overflow:hidden;background:repeating-linear-gradient(135deg,#E7E0D0 0 6px,#DED6C4 6px 12px)">
+                        <sc-if value="{{ l.img }}" hint-placeholder-val="{{ true }}"><img src="{{ l.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></sc-if>
+                      </div>
+                      <div style="flex:1;min-width:0">
+                        <div onClick="{{ l.open }}" style="cursor:pointer;font:400 14px/1.25 Newsreader,serif;text-wrap:pretty">{{ l.name }}</div>
+                        <div style="font-size:11px;color:#7A7466;margin-top:3px">{{ l.unit }}</div>
+                      </div>
+                      <div style="display:flex;align-items:center;border:1px solid rgba(30,42,34,.18);border-radius:999px;flex:none">
+                        <button onClick="{{ l.dec }}" style="border:none;background:none;cursor:pointer;width:28px;height:30px;font-size:15px">−</button>
+                        <span style="width:20px;text-align:center;font:600 12px Archivo,sans-serif">{{ l.qty }}</span>
+                        <button onClick="{{ l.inc }}" style="border:none;background:none;cursor:pointer;width:28px;height:30px;font-size:15px">+</button>
+                      </div>
+                      <span style="font:600 12.5px/1 Archivo,sans-serif;width:62px;text-align:right;flex:none">{{ l.sum }}</span>
+                    </div>
+                  </sc-for>
+                  <div style="display:flex;justify-content:space-between;padding:10px 15px;border-top:1px solid rgba(30,42,34,.1);font-size:11.5px;color:#5A5648"><span>Subtotal {{ g.name }}</span><span style="font-weight:600;color:#1E2A22">{{ g.sum }}</span></div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="flex:1 1 260px;min-width:250px;position:sticky;top:96px;background:#fff;border:1px solid rgba(30,42,34,.12);border-radius:12px;padding:18px">
+              <div style="font:400 19px/1 Newsreader,serif">Resum</div>
+              <div style="margin-top:14px;display:flex;flex-direction:column;gap:9px;font-size:12.5px;color:#3D4A40">
+                <div style="display:flex;justify-content:space-between"><span>Productes</span><span>{{ subtotal }}</span></div>
+                <div style="display:flex;justify-content:space-between"><span>Recollida al punt</span><span>0,00 €</span></div>
+              </div>
+              <div style="margin-top:14px;padding-top:13px;border-top:1px solid rgba(30,42,34,.14);display:flex;justify-content:space-between;align-items:baseline"><span style="font:500 14px Archivo,sans-serif">Total</span><span style="font:600 20px/1 Archivo,sans-serif">{{ total }}</span></div>
+              <button onClick="{{ goCheckout }}" style="margin-top:16px;width:100%;border:none;cursor:pointer;background:#2F5D3A;color:#fff;padding:13px;border-radius:999px;font:500 13.5px Archivo,sans-serif">Continuar</button>
+              <p style="margin:13px 0 0;font-size:11px;line-height:1.6;color:#7A7466">Una sola factura emesa per l'associació. Cada productor rep la seva liquidació amb el detall de les seves vendes.</p>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isCheckout }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:26px 20px 34px">
+        <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:20px">
+          <h1 style="margin:0;font:400 30px/1 Newsreader,serif;letter-spacing:-.01em">Finalitzar la comanda</h1>
+          <span style="font-size:11.5px;color:#7A7466">Cicle 12 · recollida divendres 20 de febrer</span>
+        </div>
+        <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start">
+          <div style="flex:2 1 380px;min-width:300px;display:flex;flex-direction:column;gap:16px">
+
+            <div style="background:#fff;border:1px solid rgba(30,42,34,.12);border-radius:12px;padding:18px">
+              <div style="display:flex;align-items:baseline;gap:9px;margin-bottom:4px"><span style="font:600 10px/1 Archivo,sans-serif;color:#C4572B">01</span><span style="font:400 19px/1 Newsreader,serif">On la recolliràs</span></div>
+              <p style="margin:6px 0 14px;font-size:11.5px;color:#7A7466">Tot el que has comprat, de tots els productors, t'espera junt en un sol punt.</p>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <sc-for list="{{ points }}" as="pt" hint-placeholder-count="5">
+                  <div onClick="{{ pt.pick }}" style="cursor:pointer;display:flex;gap:12px;align-items:flex-start;border:1px solid {{ pt.border }};background: {{ pt.bg }};border-radius:10px;padding:12px 14px">
+                    <span style="width:16px;height:16px;border-radius:50%;flex:none;margin-top:2px;border:1px solid {{ pt.dotBorder }};background: {{ pt.dot }}"></span>
+                    <div style="flex:1;min-width:0">
+                      <div style="font:500 13px/1.3 Archivo,sans-serif">{{ pt.name }}</div>
+                      <div style="font-size:11.5px;color:#6E6A5E;margin-top:3px">{{ pt.addr }} · {{ pt.hours }}</div>
+                    </div>
+                    <span style="font-size:11px;color:#7A7466;flex:none">{{ pt.dist }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="background:#fff;border:1px solid rgba(30,42,34,.12);border-radius:12px;padding:18px">
+              <div style="display:flex;align-items:baseline;gap:9px;margin-bottom:14px"><span style="font:600 10px/1 Archivo,sans-serif;color:#C4572B">02</span><span style="font:400 19px/1 Newsreader,serif">Les teves dades</span></div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+                <label style="display:flex;flex-direction:column;gap:5px;font-size:11px;color:#7A7466">Nom i cognoms<input value="Elias Haase" style="border:1px solid rgba(30,42,34,.2);border-radius:8px;padding:10px 12px;font:400 13px Archivo,sans-serif;background:#FBF9F4;color:#1E2A22"></label>
+                <label style="display:flex;flex-direction:column;gap:5px;font-size:11px;color:#7A7466">Telèfon<input value="635 18 81 27" style="border:1px solid rgba(30,42,34,.2);border-radius:8px;padding:10px 12px;font:400 13px Archivo,sans-serif;background:#FBF9F4;color:#1E2A22"></label>
+                <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:5px;font-size:11px;color:#7A7466">Correu electrònic<input value="hola@viriditas.farm" style="border:1px solid rgba(30,42,34,.2);border-radius:8px;padding:10px 12px;font:400 13px Archivo,sans-serif;background:#FBF9F4;color:#1E2A22"></label>
+              </div>
+            </div>
+
+            <div style="background:#fff;border:1px solid rgba(30,42,34,.12);border-radius:12px;padding:18px">
+              <div style="display:flex;align-items:baseline;gap:9px;margin-bottom:6px"><span style="font:600 10px/1 Archivo,sans-serif;color:#C4572B">03</span><span style="font:400 19px/1 Newsreader,serif">Pagament</span></div>
+              <p style="margin:6px 0 14px;font-size:11.5px;color:#7A7466">Targeta via Stripe. Un sol càrrec a nom de l'associació.</p>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px">
+                <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:5px;font-size:11px;color:#7A7466">Número de targeta<input value="4242 4242 4242 4242" style="border:1px solid rgba(30,42,34,.2);border-radius:8px;padding:10px 12px;font:400 13px ui-monospace,Menlo,monospace;background:#FBF9F4;color:#1E2A22"></label>
+                <label style="display:flex;flex-direction:column;gap:5px;font-size:11px;color:#7A7466">Caducitat<input value="04 / 29" style="border:1px solid rgba(30,42,34,.2);border-radius:8px;padding:10px 12px;font:400 13px ui-monospace,Menlo,monospace;background:#FBF9F4;color:#1E2A22"></label>
+                <label style="display:flex;flex-direction:column;gap:5px;font-size:11px;color:#7A7466">CVC<input value="123" style="border:1px solid rgba(30,42,34,.2);border-radius:8px;padding:10px 12px;font:400 13px ui-monospace,Menlo,monospace;background:#FBF9F4;color:#1E2A22"></label>
+              </div>
+            </div>
+          </div>
+
+          <div style="flex:1 1 280px;min-width:260px;position:sticky;top:96px;background:#fff;border:1px solid rgba(30,42,34,.12);border-radius:12px;padding:18px">
+            <div style="font:400 19px/1 Newsreader,serif">Qui prepara què</div>
+            <div style="margin-top:12px;display:flex;flex-direction:column">
+              <sc-for list="{{ cartGroups }}" as="g" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:9px;padding:9px 0;border-top:1px solid rgba(30,42,34,.08)">
+                  <span style="width:20px;height:20px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font:700 8px/1 Archivo,sans-serif;color:#fff;background: {{ g.color }}">{{ g.mono }}</span>
+                  <span style="flex:1;min-width:0;font-size:11.5px;color:#3D4A40;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ g.name }}</span>
+                  <span style="font-size:10.5px;color:#7A7466;flex:none">{{ g.nItems }}</span>
+                  <span style="font:600 11.5px/1 Archivo,sans-serif;flex:none">{{ g.sum }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(30,42,34,.14);display:flex;justify-content:space-between;align-items:baseline"><span style="font:500 14px Archivo,sans-serif">Total</span><span style="font:600 20px/1 Archivo,sans-serif">{{ total }}</span></div>
+            <div style="margin-top:10px;font-size:11px;line-height:1.6;color:#7A7466">Recollida a <b style="font-weight:600;color:#3D4A40">{{ pickupName }}</b>, divendres.</div>
+            <button onClick="{{ placeOrder }}" style="margin-top:15px;width:100%;border:none;cursor:pointer;background:#C4572B;color:#fff;padding:14px;border-radius:999px;font:500 13.5px Archivo,sans-serif">Pagar {{ total }}</button>
+            <p style="margin:12px 0 0;font-size:10.5px;line-height:1.6;color:#7A7466">Rebràs una sola factura de l'Associació de Productors del Montseny, amb l'IVA reduït aplicat per categoria de producte.</p>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:40px 20px 44px;max-width:640px;margin:0 auto">
+        <div style="font:600 9.5px/1 Archivo,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#C4572B">Comanda confirmada</div>
+        <h1 style="margin:14px 0 0;font:400 34px/1.08 Newsreader,serif;letter-spacing:-.015em;text-wrap:pretty">Gràcies. {{ orderProducers }} productors ja tenen la teva llista.</h1>
+        <p style="margin:14px 0 0;font-size:13.5px;line-height:1.65;color:#3D4A40;text-wrap:pretty">Comanda <b style="font-weight:600">MVM-2026-0412</b> · {{ orderTotal }}. Dijous cada productor collirà i prepararà la seva part; divendres ho trobaràs tot junt a {{ pickupName }}.</p>
+        <div style="margin-top:24px;background:#fff;border:1px solid rgba(30,42,34,.12);border-radius:12px;overflow:hidden">
+          <sc-for list="{{ orderGroups }}" as="g" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;gap:11px;padding:13px 16px;border-top:1px solid rgba(30,42,34,.08);border-left:6px solid {{ g.color }}">
+              <span style="width:24px;height:24px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font:700 9px/1 Archivo,sans-serif;color:#fff;background: {{ g.color }}">{{ g.mono }}</span>
+              <span style="flex:1;min-width:0;font:400 15px/1.2 Newsreader,serif;text-wrap:pretty">{{ g.name }}</span>
+              <span style="font-size:11px;color:#7A7466;flex:none">{{ g.nItems }}</span>
+              <span style="font:600 12.5px/1 Archivo,sans-serif;flex:none">{{ g.sum }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <p style="margin:18px 0 0;font-size:11.5px;line-height:1.65;color:#7A7466">Una sola factura, emesa per l'associació, ja és al teu correu. Els productors reben la seva liquidació al final del cicle.</p>
+        <button onClick="{{ restart }}" style="margin-top:24px;border:none;cursor:pointer;background:#2F5D3A;color:#fff;padding:13px 24px;border-radius:999px;font:500 13px Archivo,sans-serif">Tornar al mercat</button>
+      </div>
+    </sc-if>
+
+    <div style="margin-top:12px;background:#1E2A22;color:rgba(246,242,233,.62);padding:22px 20px;display:flex;gap:22px;flex-wrap:wrap;justify-content:space-between;font-size:11.5px;line-height:1.7">
+      <div style="max-width:22em">Mercat Virtual del Montseny · Associació de Productors del Montseny<br>Programari lliure AGPL-3.0 · catàleg obert amb el vocabulari Data Food Consortium</div>
+      <div>Punts de recollida<br>Cicle setmanal<br>Contacte</div>
+      <div>Com ser productor<br>Avís legal<br>Privacitat</div>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900}}">
+const C = h => `oklch(0.55 0.115 ${h})`;
+const T = h => `oklch(0.94 0.03 ${h})`;
+const IMG = {
+  boxL: "https://viriditas.farm/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBb1VCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--71df87e77e2926a0f033b92b1bff1fb82d570358/BoxSquare.jpg",
+  boxS: "https://viriditas.farm/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBbDBDIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ae610319e9b68097eafc636a88bc9f84f32195fd/BoxSquare.jpg",
+  eggs: "https://viriditas.farm/assets/Chickencoop-3fe1ab8d23a3c3a02a7503123da73ed64e508d1436f3ce6c35301f40d80d2900.jpg",
+  beer: "https://viriditas.farm/assets/Cosechadora-b290ebf2fde993e12a82b8b925793c20e2f986db8fe590178f7326a589eb436f.jpg",
+  garden: "https://viriditas.farm/assets/garden24-e99db744d0e2adbea3b8c75e37a2893b676d9da5424bbe9d7a1c2a7365f7cba3.jpg",
+  farm: "https://viriditas.farm/assets/bg-1-e184ca13827471fd704e1115eb7f111709c7e338594591ea2fa4825f4f8ca349.jpg",
+  cast: "https://castanyadeviladrau.cat/assets/images/products/packs/lot-castanyes-essencials.jpeg",
+  dolcos: "https://castanyadeviladrau.cat/assets/images/products/packs/lot-dolcos-de-castanya.png",
+  cremes: "https://castanyadeviladrau.cat/assets/images/products/packs/lot-cremes-del-bosc.jpeg",
+  mels: "https://castanyadeviladrau.cat/assets/images/products/packs/lot-mels-del-territori.png",
+  begudes: "https://castanyadeviladrau.cat/assets/images/products/packs/lot-begudes-del-montseny.jpeg",
+  elab: "https://castanyadeviladrau.cat/assets/images/products/packs/lot-sabors-del-montseny.jpeg",
+  forest: "https://castanyadeviladrau.cat/assets/images/gallery/banner-parc-natural-1920.jpg",
+  oli: "https://images.hoobaweb.com/8255/img-480-720/producte-3.jpg",
+  olives: "https://images.hoobaweb.com/8255/img-480-360/galeria-producte-salar-04.jpg",
+  vall: "https://images.hoobaweb.com/8255/img-480-360/galeria-entorn-salar-01-768x384.jpg",
+  botiguetaCistella: "https://s3-eu-west-1.amazonaws.com/e.botiga/images/000/000/691/20130905_093355_medium.jpg",
+  botiguetaHort: "https://s3-eu-west-1.amazonaws.com/e.botiga/images/000/001/688/20180717_084958_medium.jpg"
+};
+
+const PRODUCERS = {
+  viriditas: { name: "Viriditas", mono: "V", h: 145, town: "Parc Natural del Montseny", cert: "Regeneratiu", logistics: "propi",
+    short: "Verdures de temporada, gallines de pastura i cervesa de cereals tradicionals catalans en 30 hectàrees.",
+    long: "Viriditas cultiva verdures de temporada, cria gallines de pastura per a ous, i elabora cervesa amb cereals tradicionals catalans en 30 hectàrees al Parc Natural del Montseny. Utilitzant mètodes d'agricultura regenerativa i varietats tradicionals de llavors, la granja lliura verdures acabades de collir directament als clients a Barcelona i el Baix Montseny mitjançant subscripcions de caixes de verdures.",
+    tags: ["Regeneratiu", "Llavor tradicional", "Pastura"], img: IMG.garden, web: "https://viriditas.farm" },
+  castanya: { name: "Castanya de Viladrau", mono: "CV", h: 55, town: "Viladrau", cert: "Fet a Osona", logistics: "propi",
+    short: "Producció de castanya del territori, elaborats de castanya i visites guiades.",
+    long: "Ens dediquem a la producció de castanya del territori, elaborats de castanya i visites guiades. Des del cor del Parc Natural del Montseny, Reserva de la Biosfera, cada producte impulsa la gestió forestal sostenible i l'economia local.",
+    tags: ["Fet a Osona", "Gestió forestal", "365 dies"], img: IMG.forest, web: "https://www.castanyadeviladrau.cat" },
+  moli: { name: "Molí Salar d'Arbúcies", mono: "MS", h: 105, town: "Arbúcies", cert: "CCPAE", logistics: "recollida",
+    short: "Oli d'oliva verge extra de la varietat autòctona de la Vall d'Arbúcies.",
+    long: "Oli d'oliva verge extra elaborat amb la varietat autòctona de la Vall d'Arbúcies, recuperada l'any 2012 després de l'abandonament del cultiu. Collim l'oliva madura per fer un oli verd, estructurat, amb un 77% d'àcid oleic i complexitat aromàtica alta. Cultiu ecològic, extracció en fred.",
+    tags: ["CCPAE", "Varietat autòctona", "Extracció en fred"], img: IMG.vall, web: "https://www.salardarbucies.com" },
+  berries: { name: "Red Passion Berries", mono: "RP", h: 15, town: "Baix Montseny", cert: "Girona Excel·lent", logistics: "recollida",
+    short: "Producció ecològica de gerds i elaboració artesanal de melmelades. Obrador propi.",
+    long: "Producció ecològica de gerds i elaboració artesanal de melmelades. Obrador propi.",
+    tags: ["Ecològic", "Girona Excel·lent", "Obrador propi"], img: null, web: null },
+  esquellot: { name: "l'Esquellot del Montseny", mono: "EM", h: 250, town: "Montseny", cert: "Llet crua", logistics: "propi",
+    short: "Granja familiar d'ovelles latxes de llet: formatges artesans i xai lletó.",
+    long: "Som una petita granja familiar on tenim ovelles latxes de llet, elaborem formatges artesans, xai lletó i ensinistrament de gos pastor.",
+    tags: ["Llet crua", "Ovella latxa", "Familiar"], img: null, web: null },
+  melmont: { name: "Mel del Montseny", mono: "MM", h: 80, town: "Cor del Montseny", cert: "Artesana", logistics: "recollida",
+    short: "Família d'apicultors: mel natural extreta directament dels ruscos, amb manipulació mínima.",
+    long: "A Mel del Montseny produïm mel natural i artesana al cor del Montseny, cuidant les abelles i el seu entorn amb respecte i paciència. Som una família d'apicultors que treballem amb mètodes tradicionals i extraiem la mel directament dels ruscos, amb una manipulació mínima. Oferim diferents varietats segons la floració del territori, conservant tot el sabor i les propietats naturals.",
+    tags: ["Artesana", "Mètode tradicional", "Per floració"], img: null, web: null },
+  erms: { name: "Mel dels erms", mono: "ME", h: 68, town: "Montseny", cert: "Apicultura ecològica", logistics: "recollida",
+    short: "Productes del rusc: mel, pol·len, pròpolis i hidromels.",
+    long: "Productes del rusc: mel, pol·len, pròpolis i hidromels. Apicultura ecològica des del cor del Montseny.",
+    tags: ["Ecològic", "Productes del rusc", "ApiVisites"], img: null, web: "https://www.meldelserms.cat" },
+  baluard: { name: "Baluard Celler", mono: "BC", h: 340, town: "Montseny", cert: "Vi de finca", logistics: "propi",
+    short: "Celler afincat al Montseny. Cultiu de la vinya, elaboració de vins i escumosos.",
+    long: "Celler afincat al Montseny. Cultiu de la vinya. Elaboració de vins i escumosos. Vinyes situades a 750 metres d'alçada, amb fermentació i criança en bucois de castanyer del Montseny.",
+    tags: ["Vi de finca", "750 m d'alçada", "Bucoi de castanyer"], img: null, web: "https://www.baluardceller.cat" },
+  cadell: { name: "Mas Can Cadell", mono: "MC", h: 162, town: "Montseny", cert: "CCPAE", logistics: "propi",
+    short: "Horta ecològica biointensiva, mínima llaurada i sense maquinària pesada.",
+    long: "Horta Ecològica Biointensiva. Sistema productiu amb la mínima llaurada i sense maquinària pesada. Gran diversitat de productes frescos i de temporada.",
+    tags: ["CCPAE", "Biointensiu", "Mínima llaurada"], img: null, web: "https://www.mascancadell.cat" },
+  cor: { name: "Cor del Montseny", mono: "CM", h: 300, town: "Montseny", cert: "Ecològic", logistics: "recollida",
+    short: "Artesania culinària amb plantes salvatges i cultivades del massís.",
+    long: "Cor del Montseny és una experiència d'artesania culinària vinculada a la natura i les plantes salvatges i cultivades del massís del Montseny. Que vol fer de la cuina amb plantes medicinals i l'horta de proximitat una eina de salut, creixement i plaer per el menjar deliciós.",
+    tags: ["Ecològic", "Plantes medicinals", "Obrador"], img: null, web: "http://cordelmontseny.cat" },
+  debosc: { name: "deBosc", mono: "dB", h: 195, town: "Montseny", cert: "Silvestre", logistics: "propi",
+    short: "Agricultors i recol·lectors. Elaborats amb plantes silvestres i catering.",
+    long: "Som agricultors i recol·lectors, proveïment de restaurants gastronòmics. Paral·lelament elaborem productes amb les nostres plantes i fem catering.",
+    tags: ["Silvestre", "Recol·lecció", "Restauració"], img: null, web: "https://www.deboscsilvestre.cat" },
+  agro: { name: "Agroblanch", mono: "AB", h: 25, town: "Montseny", cert: "Ovella ripollesa", logistics: "recollida",
+    short: "Empresa agrícola, forestal i ramadera. Més de 20 generacions al territori.",
+    long: "Empresa agrícola, forestal i ramadera. Més de 20 generacions vinculades al territori i a una producció equilibrada i de qualitat. Venem carn de xai del nostre ramat, amb el tall triat al gust.",
+    tags: ["Ripollesa", "20 generacions", "Ramat propi"], img: null, web: null },
+  muns: { name: "Josep Muns Crivillé", mono: "JM", h: 40, town: "Montseny", cert: "Vedella Angus", logistics: "recollida",
+    short: "Vedella Angus criada a la finca amb cereals i bagàs de la cerveseria del Montseny.",
+    long: "Producció de vedella Angus, criem la vedella des d'una setmana, que és l'edat en la que entra a la granja, fins al sacrifici que és al voltant de l'any. L'alimentació es fa amb productes de la finca, també mengen bagàs de la cerveseria del Montseny i una barreja de cereals per complementar-ho. Els animals estan en un espai prou ampli per la seva comoditat.",
+    tags: ["Angus", "Aliment de finca", "Lots de 5-10 kg"], img: null, web: null },
+  casanova: { name: "Casa Nova de Figuerola", mono: "CN", h: 8, town: "Seva", cert: "Criada a Seva", logistics: "recollida",
+    short: "Lots de vedella Angus criada a Seva amb aliments de qualitat.",
+    long: "Lots de vedella Angus criada a Seva amb aliments de qualitat.",
+    tags: ["Angus", "Seva", "Lots"], img: null, web: null },
+  berta: { name: "La Botigueta de Mosqueroles - Essavia", mono: "LB", h: 128, town: "Fogars de Montclús (Vallès Oriental)", cert: "De temporada", logistics: "propi",
+    short: "Venda de verdures, fruites i llegums de collites pròpies, ecològiques i de proximitat.",
+    long: "Horta. Verdures i hortalisses de temporada conreades a Can Farres de Mosqueroles. Venda online de verdures, fruites i llegums de collites pròpies, ecològiques i/o de proximitat, a través del mercat virtual Essavia.",
+    tags: ["Temporada", "Horta", "Mosqueroles"], img: IMG.botiguetaHort, web: "http://www.essavia.com/ca/la-botigueta-de-mosqueroles" }
+};
+
+const RAW = [
+  ["viriditas","Cistella de Verdures gran","Cistelles",20.8,IMG.boxL,null,"Verdures de temporada acabades de collir, amb 7-10 varietats diferents per cuinar tota la setmana per a 2-3 persones."],
+  ["viriditas","Cistella de Verdures petita","Cistelles",12.48,IMG.boxS,null,"Una caixa amb 4-5 verdures de temporada, ideal per a una persona que cuina regularment."],
+  ["viriditas","Mitja Dotzena d'Ous","Làctics i ous",3.4,IMG.eggs,null,"Ous frescos de gallines criades en llibertat amb accés a pastura i bosc, alimentades amb pinso ecològic."],
+  ["viriditas","Cervoisa Pagésa 355ml","Begudes",3.5,IMG.beer,null,"Cervesa maltosa i equilibrada, feta amb tècniques de fabricació medievals i gra de la granja."],
+  ["viriditas","Cervoisa Agra 355ml","Begudes",3.5,IMG.beer,null,"Cervesa àcida de fermentació natural i llarg envelliment, complexa i refrescant."],
+  ["viriditas","Kombucha de Esbarzer i Ortiga 355ml","Begudes",4,null,"ampolla de\nkombucha","Beguda fermentada feta només amb fulles silvestres recollides als boscos del Montseny, sense te."],
+  ["berta","Cistella de verdures","Cistelles",15,IMG.botiguetaCistella,null,"Cistella de verdures de temporada conreades a Can Farres de Mosqueroles, varien segons l'època de l'any."],
+  ["castanya","Castanya fresca gran 500grs","Castanyes",6.5,IMG.cast,null,"Fer-la directament al foc amb llamarada viva.\nConservar-la a la nevera.\nÉs de temporada."],
+  ["castanya","Castanya fresca Extra 500grs","Castanyes",7.5,IMG.cast,null,"Fer-la directament al foc amb llamarada viva.\nConservar-la a la nevera.\nÉs de temporada."],
+  ["castanya","Castanya torrada 150 grs","Castanyes",5.7,IMG.elab,null,"Es poden menjar directament o escalfar-se al bany maria.\nConservar-la a la nevera."],
+  ["castanya","Marrón Glacé 200g","Elaborats",12.5,IMG.dolcos,null,"Castanya confitada. Per prendre com a postre o elaborar dolços."],
+  ["castanya","Crema de castanya 230gr","Elaborats",6,IMG.cremes,null,"Ideal per acompanyar amanides, pa torrat i carn. Per elaborar salses. No conté sucres afegits."],
+  ["castanya","Farina de castanya 200g","Elaborats",4.2,null,"paquet de\nfarina","Mòlta amb molí de pedra. Ideal per a fer beixamel, pa al 40%, creps i postres. De gust dolç i sense gluten."],
+  ["castanya","Mel de castanyer 500g","Mel",8.5,IMG.mels,null,"Obtinguda dels nostres castanyers. Per acompanyar infusions, mató o elaborar salses i vinagretes."],
+  ["castanya","Cervesa de castanya amb alcohol","Begudes",4,IMG.begudes,null,"Cervesa feta amb la nostra castanya torrada, té un color torrat fosc i és intensa."],
+  ["castanya","Licor de castanya 50cl","Begudes",22,IMG.elab,null,"Macerat amb la nostra castanya i canyella."],
+  ["castanya","Formatge de castanya curat 400g aprox.","Làctics i ous",20.5,null,"formatge\ncurat","Fet amb llet de cabra pasteuritzada i castanya."],
+  ["castanya","Melmelada de castanya 275g","Melmelades",6.2,null,"pot de\nmelmelada","Per utilitzar amb pa torrat o elaborar farcits."],
+  ["castanya","Botifarra amb castanyes 300 gr","Carn",6.7,null,"botifarra\nfresca","Per fer directament a la brasa i cocció lenta.\nConservar a la nevera."],
+  ["moli","Oli d'Oliva Verge Extra Salar d'Arbúcies 500ml","Oli",43.68,IMG.oli,null,"Varietat autòctona de la Vall d'Arbúcies. Collim l'oliva madura per fer un oli verd, estructurat amb un 77% d'àcid oleic i complexitat aromàtica alta amb atributs de tomàquet, carxofa, nous, ametlló i menta.\n\nEl fruitat d'oliva intens el fa un oli golós, l'amarg alt equilibrat amb el picant i l'astringent el converteixen en un oli cruixent i fresc.\nCultiu ECO, extracció en fred."],
+  ["moli","Oli d'Oliva Verge Extra Salar d'Arbúcies 100ml","Oli",20.8,IMG.oli,null,"Varietat autòctona de la Vall d'Arbúcies. Cultiu ECO, extracció en fred."],
+  ["moli","Oli d'Oliva Verge Extra OVA Verd","Oli",10.35,IMG.olives,null,"Cupatge format per les següents varietats catalanes: Vera del Vallès, Empeltre i Arbequina.\n\nPerfil sensorial on predominen l'herba tallada i la carxofa. Especialment indicat per a brases, salses verdes i marisc. Extracció en fred."],
+  ["moli","Oli d'Oliva Verge Extra OVA Fruitat","Oli",10.35,null,"ampolla d'oli\nOVA Fruitat","Cupatge format per les següents varietats catalanes: Roig, Empeltre i Arbequina.\n\nPerfil sensorial on predominen l'avellana, la fruita vermella (maduixa) i els atributs florals. Especialment indicat per amanides i maioneses."],
+  ["berries","Melmelada de gerds","Melmelades",6.5,null,"pot de\nmelmelada de gerds","Melmelades de gerds de cultiu propi. Ingredients: gerds, sucre, pectina i llimona. Segell Girona Excel·lent."],
+  ["berries","Melmelada de gerds i gingebre","Melmelades",6.5,null,"pot de\nmelmelada","Melmelada de gerds de cultiu propi. Ingredients: gerds, gingebre, sucre, pectina i llimona."],
+  ["berries","Melmelada de ruibarbre","Melmelades",4.5,null,"pot de\nmelmelada","Melmelada de ruibarbre de cultiu propi. Ingredients: ruibarbre, sucre, pectina, llimona i taronja."],
+  ["esquellot","Formatge temperi","Làctics i ous",30,null,"cunya de\nformatge madurat","Formatge madurat amb llet crua d'ovella, presentat en cunyes d'uns 350 g i envasats al buit. El preu és per kg."],
+  ["esquellot","Formatge trevolet","Làctics i ous",7,null,"formatge\ncremós","Formatge cremós de llet d'ovella, presentat en unitats de 250 g."],
+  ["esquellot","Formatge blauet","Làctics i ous",35,null,"cunya de\nformatge blau","Formatge blau elaborat amb llet crua d'ovella, presentat en cunyes. El preu és per kg."],
+  ["baluard","Baluard 2023","Begudes",16,null,"ampolla de\nvi blanc","Vi blanc de Chardonnay. Vinyes situades a 750 metres d'alçada. Fermentació i criança en bucois de castanyer del Montseny durant 8 mesos."],
+  ["cor","Crackers de farigola 140g","Elaborats",5,null,"crackers\nen bossa","Amb farina d'espelta semi integral de Gallecs, ecològica, oli d'oliva verge extra ecològic i farigola del Montseny.\n\nPer picar entre hores, dipejar, per acompanyar formatges i el que se us acudeixi."],
+  ["cor","Crackerd de romaní 140 gr","Elaborats",5,null,"crackers\nen bossa","Amb farina d'espelta ecològica de Gallecs, oli verge extra ecològic i romaní collit al Montseny, cruixents i bons per menjar sols entre hores, o bé per acompanyar salses, formatges, humus."],
+  ["cor","Galetes de saüc 125 gr","Elaborats",4.5,null,"galetes\nartesanes","Galetes artesanes amb farina d'espelta semi integral de Gallecs, sense làctics, amb ous del Mas eco de Campins i xarop de baies de saüc. Té un gust suau i poc sucre."],
+  ["cor","Paté vegetal d'herbes del Montseny 125 gr","Elaborats",4.6,null,"pot de paté\nvegetal","Deliciós paté amb base de pipes de gira-sol, cebes i alls confitats i una barreja d'herbes i plantes medicinals del Montseny, tots els ingredients provenen de l'agricultura ecològica sense químics."],
+  ["cor","Sobrasada vegetal 125 gr","Elaborats",4.6,null,"pot de\nsobrassada vegetal","Deliciós per untar vegetal, amb base d'anous i tomàquets secs del Montseny, una selecció de plantes medicinals collides al Montseny. 100% vegetal i sense químics."],
+  ["cor","Melmelada de tomàquet i espècies 250 gr","Melmelades",5,null,"pot de\nmelmelada","Amb tomàquets ecològics, espècies i sucre daurat de canya ecològic. La millor per combinar amb taules de formatges, foie i patés vegetals."],
+  ["cor","Refresc concentrat de flors de saüc 200 mL","Begudes",5,null,"ampolla de\nconcentrat","Extracte concentrat de flors de saüc, amb un toc de llimona, beguda tradicional del Montseny. Es posa entre un i dos dits de concentrat al got i s'acaba d'omplir d'aigua ben fresca."],
+  ["cor","Vinagre de flors de saüc 200 ml","Elaborats",4.5,null,"ampolla de\nvinagre","Vinagre de poma ecològic sense pasteuritzar, amb les mares del vinagre. Macerat amb flors de saüc, molt aromàtic. Molt versàtil en vinagretes i escabetxos."],
+  ["cadell","Tomàquet (varis)","Verdures",5.72,null,"tomàquets\nde varietat","Preu per quilo."],
+  ["cadell","Mèsclum enciams (300g)","Verdures",3.2,null,"mèsclum\nen bossa",""],
+  ["cadell","Carbassa cacauet (kg)","Verdures",2.5,null,"carbassa\ncacauet",""],
+  ["cadell","Col kale (m)","Verdures",2.8,null,"manat\nde kale","Preu per manat."],
+  ["cadell","Pebrot de Girona (kg)","Verdures",3.9,null,"pebrots\nde Girona",""],
+  ["cadell","Porro (m)","Verdures",3.2,null,"manat\nde porros",""],
+  ["cadell","Bròculi (u)","Verdures",3.8,null,"bròculi",""],
+  ["cadell","Bleda colors (m)","Verdures",2.4,null,"bledes\nde colors",""],
+  ["melmont","Mel de Romaní 500g","Mel",9.75,null,"pot de mel\nde romaní","La mel de romaní destaca pel seu color clar i textura suau. Ofereix un sabor fi i lleugerament balsàmic, amb matisos florals que recorden la fragància del romaní en flor. La seva dolçor és neta i equilibrada, amb un caràcter fresc i elegant."],
+  ["melmont","Mel de Farigola 500g","Mel",9.75,null,"pot de mel\nde farigola","La mel de farigola destaca pel seu color ambre fosc i pel seu sabor intens, amb una dolçor marcada per tocs herbals i especiats. Evoca la frescor i l'aroma profunda de la planta."],
+  ["melmont","Mel de Bruc 500g","Mel",9.75,null,"pot de mel\nde bruc","La mel de bruc destaca pel seu color fosc i textura densa. El seu sabor intens combina notes florals amb un toc torrat, oferint una complexitat rica i profunda."],
+  ["melmont","Mel de Castanyer 950g","Mel",14.9,null,"pot de mel\nde castanyer","La mel de castanyer destaca pel seu color fosc i sabor intens. Combina una dolçor profunda amb un toc amarg subtil que li dóna caràcter."],
+  ["erms","Mel primavera 1000g","Mel",19,null,"pot de mel\n1 kg","Mel multifloral."],
+  ["erms","Mel castanyer 500g","Mel",10.5,null,"pot de mel\n500 g",""],
+  ["erms","Pol·len 225g","Mel",12,null,"pot de\npol·len",""],
+  ["erms","Hidromel Vermut 500 cl","Begudes",12,null,"ampolla\nd'hidromel",""],
+  ["debosc","Torró d'avellanes 300g","Elaborats",15,null,"torró\nartesà",""],
+  ["debosc","Torró d'ametlles, mel i romaní 300g","Elaborats",15,null,"torró\nartesà",""],
+  ["debosc","Torró de xocolata negra, avellanes i avet 250g","Elaborats",15,null,"torró de\nxocolata",""],
+  ["agro","Carn de xai d'ovella ripollesa","Carn",17,null,"tall de xai","Venem carn de xai del nostre ramat. Trieu al gust el tipus de tall (brasa, qualsevol peça sencera per fer al forn, sencer per tallar vosaltres). Formats possibles: mig xai (5,5 kg aprox.) o xai sencer (11,5 kg aprox.). Preu per quilo."],
+  ["agro","Lletó de xai","Carn",26,null,"lletó\nde xai","Venem carn de xai del nostre ramat. Formats possibles: xai sencer 5,5 kg aprox. Preu per quilo."],
+  ["muns","Vedella Angus","Carn",18,null,"lot de\nvedella Angus","Venem la vedella en lots amb tota la varietat de les seves parts: entrecot, xurrasco, bistec, filet, etc. Preu per quilo."],
+  ["casanova","Lot de vedella variat de 5 kg","Carn",90,null,"lot de\nvedella 5 kg","Lot de vedella variat de 5 kg. 18 €/kg."],
+  ["casanova","Lot de vedella variat de 10 kg","Carn",180,null,"lot de\nvedella 10 kg","Lot de vedella variat de 10 kg. 18 €/kg."]
+];
+
+const CATS = ["Cistelles","Verdures","Làctics i ous","Carn","Castanyes","Mel","Oli","Melmelades","Elaborats","Begudes"];
+const CAT_HUE = { "Cistelles":145, "Verdures":162, "Làctics i ous":250, "Carn":25, "Castanyes":55, "Mel":80, "Oli":105, "Melmelades":15, "Elaborats":300, "Begudes":195 };
+
+const POINTS = [
+  { name: "Info Point Sant Esteve de Palautordera", addr: "Carrer Major 2", hours: "divendres 17-20 h", dist: "4 km" },
+  { name: "Arbúcies — Museu La Gabella", addr: "Carrer Lluís Companys 2", hours: "divendres 16-19 h", dist: "12 km" },
+  { name: "Viladrau — Xalet La Coromina", addr: "Carretera de Vic 12", hours: "divendres 17-20 h", dist: "23 km" },
+  { name: "Sant Celoni — Mercat municipal", addr: "Carrer Major 27", hours: "divendres 17-20 h", dist: "9 km" }
+];
+
+const eur = n => n.toFixed(2).replace(".", ",") + " €";
+const PRODUCTS = RAW.map((r, i) => ({
+  id: i, pk: r[0], name: r[1], cat: r[2], priceN: r[3], img: r[4] || null,
+  ph: r[5] || "foto de producte", desc: r[6] || "Producte del cicle 12."
+}));
+const KEYS = Object.keys(PRODUCERS).filter(k => k !== "viriditas").concat("viriditas");
+const ORDER = {}; KEYS.forEach((k, i) => { ORDER[k] = i; });
+const SORTED = PRODUCTS.slice().sort((a, b) => ORDER[a.pk] - ORDER[b.pk] || a.id - b.id);
+const countFor = k => PRODUCTS.filter(p => p.pk === k).length;
+
+class Component extends DCLogic {
+  state = { screen: "home", pid: null, pk: null, cat: "Tot", pfilter: null, cart: {}, qty: 1, device: "desktop", pickup: 0 };
+
+  go = (screen, patch) => this.setState(Object.assign({ screen }, patch || {}));
+  add = (id, n) => this.setState(s => {
+    const cart = Object.assign({}, s.cart);
+    cart[id] = (cart[id] || 0) + (n || 1);
+    return { cart };
+  });
+  setQ = (id, n) => this.setState(s => {
+    const cart = Object.assign({}, s.cart);
+    if (n <= 0) delete cart[id]; else cart[id] = n;
+    return { cart };
+  });
+
+  card = p => {
+    const pr = PRODUCERS[p.pk];
+    return {
+      isProduct: true, isEditorial: false, span: "auto",
+      id: p.id, name: p.name, prod: pr.name, mono: pr.mono, color: C(pr.h),
+      price: eur(p.priceN), img: p.img, ph: p.ph,
+      open: () => this.go("product", { pid: p.id, qty: 1 }),
+      openProd: () => this.go("producer", { pk: p.pk }),
+      add: () => this.add(p.id, 1)
+    };
+  };
+
+  renderVals() {
+    const s = this.state;
+    const mobile = s.device === "mobile";
+    const cartIds = Object.keys(s.cart).map(Number);
+    const cartCount = cartIds.reduce((a, id) => a + s.cart[id], 0);
+    const subtotalN = cartIds.reduce((a, id) => a + PRODUCTS[id].priceN * s.cart[id], 0);
+
+    const groupsFor = () => {
+      const by = {};
+      cartIds.forEach(id => {
+        const p = PRODUCTS[id];
+        (by[p.pk] = by[p.pk] || []).push(p);
+      });
+      return Object.keys(by).map(k => {
+        const pr = PRODUCERS[k];
+        const lines = by[k].map(p => ({
+          name: p.name, img: p.img, qty: s.cart[p.id],
+          unit: eur(p.priceN) + " la unitat",
+          sum: eur(p.priceN * s.cart[p.id]),
+          open: () => this.go("product", { pid: p.id, qty: 1 }),
+          inc: () => this.setQ(p.id, s.cart[p.id] + 1),
+          dec: () => this.setQ(p.id, s.cart[p.id] - 1)
+        }));
+        const sum = by[k].reduce((a, p) => a + p.priceN * s.cart[p.id], 0);
+        const n = by[k].reduce((a, p) => a + s.cart[p.id], 0);
+        return {
+          name: pr.name, mono: pr.mono, color: C(pr.h), tint: T(pr.h), lines,
+          sum: eur(sum), nItems: n + (n === 1 ? " article" : " articles"),
+          prepares: pr.logistics === "propi" ? "porta al punt" : "recollida per la ruta",
+          open: () => this.go("producer", { pk: k })
+        };
+      });
+    };
+    const cartGroups = groupsFor();
+
+    const filtered = SORTED.filter(p =>
+      (s.cat === "Tot" || p.cat === s.cat) && (!s.pfilter || p.pk === s.pfilter));
+
+    const editorialKeys = ["castanya", "moli", "viriditas"];
+    const catalog = [];
+    let ed = 0;
+    filtered.forEach((p, i) => {
+      catalog.push(this.card(p));
+      if ((i + 1) % 10 === 0 && ed < editorialKeys.length && !s.pfilter) {
+        const k = editorialKeys[ed++], pr = PRODUCERS[k];
+        catalog.push({
+          isProduct: false, isEditorial: true, span: mobile ? "auto" : "span 2",
+          name: pr.name, short: pr.short, img: pr.img || IMG.farm, n: countFor(k),
+          openProd: () => this.go("producer", { pk: k })
+        });
+      }
+    });
+
+    const visible = {};
+    filtered.forEach(p => { visible[p.pk] = true; });
+    const visibleDots = Object.keys(visible).map(k => ({ color: C(PRODUCERS[k].h), name: PRODUCERS[k].name }));
+
+    const chips = ["Tot"].concat(CATS).map(name => {
+      const on = s.cat === name;
+      return {
+        name, bg: on ? "#1E2A22" : "#fff", fg: on ? "#F6F2E9" : "#3D4A40",
+        border: on ? "#1E2A22" : "rgba(30,42,34,.14)",
+        go: () => this.setState({ cat: name, screen: "catalog" })
+      };
+    });
+
+    const p = s.pid == null ? null : PRODUCTS[s.pid];
+    const ip = p ? PRODUCERS[p.pk] : null;
+    const item = p ? {
+      name: p.name, prod: ip.name, mono: ip.mono, color: C(ip.h), price: eur(p.priceN),
+      img: p.img, ph: p.ph, desc: p.desc, prodShort: ip.long, prodImg: ip.img,
+      tags: ip.tags, prodN: countFor(p.pk),
+      openProd: () => this.go("producer", { pk: p.pk })
+    } : { tags: [] };
+    const siblings = p ? PRODUCTS.filter(q => q.pk === p.pk && q.id !== p.id).slice(0, 5).map(this.card) : [];
+
+    const wk = s.pk;
+    const wpr = wk ? PRODUCERS[wk] : null;
+    const who = wpr ? {
+      name: wpr.name, mono: wpr.mono, color: C(wpr.h), img: wpr.img, long: wpr.long,
+      town: wpr.town, tags: wpr.tags, n: countFor(wk),
+      logistics: wpr.logistics === "propi" ? "el productor porta al punt" : "recollit per la ruta de l'associació",
+      web: wpr.web, webLabel: wpr.web ? wpr.web.replace(/^https?:\/\/(www\.)?/, "") : "",
+      filterInCatalog: () => this.setState({ screen: "catalog", pfilter: wk, cat: "Tot" })
+    } : { tags: [] };
+    const whoItems = wk ? PRODUCTS.filter(q => q.pk === wk).map(this.card) : [];
+
+    const producerCards = KEYS.map(k => {
+      const pr = PRODUCERS[k];
+      return {
+        name: pr.name, mono: pr.mono, color: C(pr.h), short: pr.short, cert: pr.cert,
+        img: pr.img, n: countFor(k), open: () => this.go("producer", { pk: k })
+      };
+    });
+
+    const cats = CATS.map(name => {
+      const list = PRODUCTS.filter(q => q.cat === name);
+      const np = {}; list.forEach(q => { np[q.pk] = 1; });
+      return {
+        name, n: list.length, np: Object.keys(np).length, color: C(CAT_HUE[name]),
+        go: () => this.setState({ screen: "catalog", cat: name, pfilter: null })
+      };
+    });
+
+    const featured = [PRODUCTS[7], PRODUCTS[21], PRODUCTS[46], PRODUCTS[0], PRODUCTS[2]].map(this.card);
+
+    const points = POINTS.map((pt, i) => {
+      const on = s.pickup === i;
+      return Object.assign({}, pt, {
+        bg: on ? T(145) : "#FBF9F4", border: on ? "#2F5D3A" : "rgba(30,42,34,.14)",
+        dot: on ? "#2F5D3A" : "transparent", dotBorder: on ? "#2F5D3A" : "rgba(30,42,34,.3)",
+        pick: () => this.setState({ pickup: i })
+      });
+    });
+
+    const crumbs = { home: "Portada", catalog: "Catàleg", product: "Fitxa de producte", producers: "Directori de productors", producer: "Perfil del productor", cart: "Cistella multiproductor", checkout: "Checkout", done: "Confirmació" };
+
+    return {
+      crumb: crumbs[s.screen] || "",
+      frameW: mobile ? "390px" : "100%", frameM: mobile ? "26px 0 0" : "0",
+      frameR: mobile ? "26px" : "0",
+      dBg: mobile ? "transparent" : "#F6F2E9", dFg: mobile ? "rgba(246,242,233,.75)" : "#1E2A22",
+      mBg: mobile ? "#F6F2E9" : "transparent", mFg: mobile ? "#1E2A22" : "rgba(246,242,233,.75)",
+      setDesktop: () => this.setState({ device: "desktop" }),
+      setMobile: () => this.setState({ device: "mobile" }),
+      isHome: s.screen === "home", isCatalog: s.screen === "catalog", isProduct: s.screen === "product",
+      isProducers: s.screen === "producers", isProducer: s.screen === "producer",
+      isCart: s.screen === "cart", isCheckout: s.screen === "checkout", isDone: s.screen === "done",
+      goHome: () => this.go("home"), goCart: () => this.go("cart"),
+      goCatalog: () => this.setState({ screen: "catalog", pfilter: null }),
+      goProducers: () => this.go("producers"),
+      goCheckout: () => this.go("checkout"),
+      cartCount, cartTotal: eur(subtotalN), subtotal: eur(subtotalN), total: eur(subtotalN),
+      cartEmpty: cartCount === 0, cartFull: cartCount > 0,
+      cartSummaryLine: cartGroups.length + (cartGroups.length === 1 ? " productor" : " productors") + " · " + cartCount + " articles · una sola recollida, una sola factura",
+      cartGroups, catalog, chips, visibleDots, cats, featured, points, producerCards,
+      catTitle: s.cat === "Tot" ? "Tot el mercat" : s.cat,
+      catMeta: filtered.length + " productes de " + visibleDots.length + (visibleDots.length === 1 ? " productor" : " productors") + " · cicle 12",
+      prodFilterOn: !!s.pfilter,
+      filterName: s.pfilter ? PRODUCERS[s.pfilter].name : "",
+      filterMono: s.pfilter ? PRODUCERS[s.pfilter].mono : "",
+      filterColor: s.pfilter ? C(PRODUCERS[s.pfilter].h) : "transparent",
+      clearProd: () => this.setState({ pfilter: null }),
+      item, siblings, who, whoItems, nl: "\n",
+      qty: s.qty,
+      incQty: () => this.setState(x => ({ qty: x.qty + 1 })),
+      decQty: () => this.setState(x => ({ qty: Math.max(1, x.qty - 1) })),
+      addQty: () => { this.add(s.pid, s.qty); this.go("cart"); },
+      pickupName: POINTS[s.pickup].name,
+      placeOrder: () => this.go("done"),
+      orderGroups: cartGroups, orderProducers: cartGroups.length, orderTotal: eur(subtotalN),
+      restart: () => this.setState({ screen: "home", cart: {}, cat: "Tot", pfilter: null })
+    };
+  }
+}
+
+</script>
+</body>
+</html>

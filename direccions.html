@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#EAE5D9;font-family:Archivo,system-ui,sans-serif}a{color:#2F5D3A}a:hover{color:#C4572B}.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(30,42,34,.1);scroll-margin-top:16px}.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1E2A22;color:#fff;border-radius:4px;text-decoration:none}.dv-tname{font:600 13px/1.2 Archivo,sans-serif;color:#1E2A22}.dv-opts{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(30,42,34,.1);color:#1E2A22;border-radius:5px;text-decoration:none}.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 Archivo,sans-serif;color:rgba(30,42,34,.6);max-width:860px}.dv-card{max-width:100%;background:#F6F2E9;border:1px solid rgba(30,42,34,.1);border-radius:10px;box-shadow:0 1px 3px rgba(30,42,34,.08);overflow:hidden}.dv-opt:target .dv-oid{background:#C4572B;color:#fff}.dv-next{margin:22px 0 0;font:12px/1.5 Archivo,sans-serif;color:rgba(30,42,34,.55)}</style></helmet>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Mercat Virtual del Montseny — four ways to show who grew it</span></div>
+
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Baseline. Conventional shop grid in the Ametller register; producer identity carried by a coloured monogram chip on every card. Safest, fastest to build, least differentiated.</div>
+<div class="dv-card" style="width:860px">
+  <div style="background:#2F5D3A;color:#F6F2E9;padding:9px 22px;display:flex;justify-content:space-between;align-items:center;font-size:11.5px;letter-spacing:.02em">
+    <span>Cicle 12 · la botiga tanca dimecres a les 22 h</span><span style="opacity:.75">Recollida divendres · 5 punts al Montseny</span>
+  </div>
+  <div style="padding:16px 22px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(30,42,34,.1)">
+    <div style="font:500 24px/1 Newsreader,serif;letter-spacing:-.01em;color:#1E2A22">Mercat del Montseny</div>
+    <div style="display:flex;gap:20px;align-items:center;font-size:13px;color:#3D4A40"><span>Productes</span><span>Productors</span><span>Punts de recollida</span><span style="background:#1E2A22;color:#F6F2E9;padding:7px 14px;border-radius:999px;font-size:12px">Cistella · 3</span></div>
+  </div>
+  <div style="padding:16px 22px;display:flex;gap:8px;flex-wrap:wrap">
+    <span style="background:#1E2A22;color:#F6F2E9;padding:6px 13px;border-radius:999px;font-size:12px">Tot</span>
+    <span style="background:#fff;border:1px solid rgba(30,42,34,.14);padding:6px 13px;border-radius:999px;font-size:12px;color:#3D4A40">Verdures</span>
+    <span style="background:#fff;border:1px solid rgba(30,42,34,.14);padding:6px 13px;border-radius:999px;font-size:12px;color:#3D4A40">Làctics</span>
+    <span style="background:#fff;border:1px solid rgba(30,42,34,.14);padding:6px 13px;border-radius:999px;font-size:12px;color:#3D4A40">Mel</span>
+    <span style="background:#fff;border:1px solid rgba(30,42,34,.14);padding:6px 13px;border-radius:999px;font-size:12px;color:#3D4A40">Elaborats</span>
+    <span style="background:#fff;border:1px solid rgba(30,42,34,.14);padding:6px 13px;border-radius:999px;font-size:12px;color:#3D4A40">Begudes</span>
+    <span style="background:#fff;border:1px solid rgba(30,42,34,.14);padding:6px 13px;border-radius:999px;font-size:12px;color:#3D4A40">Carn</span>
+    <span style="margin-left:auto;font-size:12px;color:#8A8271;align-self:center">Filtra per productor ▾</span>
+  </div>
+  <div style="padding:4px 22px 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+    <sc-for list="{{ grid }}" as="p" hint-placeholder-count="8">
+      <div style="background:#fff;border:1px solid rgba(30,42,34,.1);border-radius:12px;overflow:hidden;display:flex;flex-direction:column">
+        <div style="aspect-ratio:1/1;background:#EDE7DA;position:relative">
+          <sc-if value="{{ p.img }}" hint-placeholder-val="{{ true }}"><img src="{{ p.img }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></sc-if>
+          <sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,#E7E0D0 0 7px,#DED6C4 7px 14px);display:flex;align-items:center;justify-content:center;padding:10px"><span style="font:400 9.5px/1.5 ui-monospace,Menlo,monospace;color:#8A8271;text-align:center">{{ p.ph }}</span></div></sc-if>
+        </div>
+        <div style="padding:11px 12px 13px;display:flex;flex-direction:column;gap:7px;flex:1">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span style="width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 8px/1 Archivo,sans-serif;color:#fff;flex:none;background: {{ p.color }}">{{ p.mono }}</span>
+            <span style="font-size:10.5px;color:#6E6A5E;letter-spacing:.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ p.prod }}</span>
+          </div>
+          <div style="font:400 14px/1.25 Newsreader,serif;color:#1E2A22;text-wrap:pretty;flex:1">{{ p.name }}</div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font:600 13px/1 Archivo,sans-serif;color:#1E2A22">{{ p.price }}</span>
+            <span style="background:#2F5D3A;color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;line-height:1">+</span>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Same catalogue, second lens. A toggle flips the grid into shelves — one band per farm, in the farm's colour, with its story and certifications on the band. Browsing by product stays default; browsing by producer is one click away.</div>
+<div class="dv-card" style="width:860px">
+  <div style="padding:16px 22px 12px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(30,42,34,.1)">
+    <div style="font:500 24px/1 Newsreader,serif;color:#1E2A22">Mercat del Montseny</div>
+    <div style="display:flex;background:#E5DFCE;border-radius:999px;padding:3px;font-size:12px">
+      <span style="padding:6px 14px;border-radius:999px;color:#5A5648">Per producte</span>
+      <span style="padding:6px 14px;border-radius:999px;background:#1E2A22;color:#F6F2E9">Per productor</span>
+    </div>
+  </div>
+  <div style="padding:8px 0 20px">
+    <sc-for list="{{ shelves }}" as="s" hint-placeholder-count="3">
+      <div style="margin-top:14px">
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 22px;background: {{ s.tint }}">
+          <span style="width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 13px/1 Archivo,sans-serif;color:#fff;flex:none;background: {{ s.color }}">{{ s.mono }}</span>
+          <div style="flex:1;min-width:0">
+            <div style="font:500 16px/1.2 Newsreader,serif;color:#1E2A22">{{ s.name }}</div>
+            <div style="font-size:11px;color:#6E6A5E;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ s.short }}</div>
+          </div>
+          <span style="font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6E6A5E;border:1px solid rgba(30,42,34,.2);padding:4px 8px;border-radius:4px;flex:none">{{ s.cert }}</span>
+          <span style="font-size:11.5px;color:#2F5D3A;flex:none">Veure la granja →</span>
+        </div>
+        <div style="padding:12px 22px 4px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+          <sc-for list="{{ s.items }}" as="p" hint-placeholder-count="4">
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <div style="aspect-ratio:4/3;background:#EDE7DA;border-radius:10px;overflow:hidden;position:relative">
+                <sc-if value="{{ p.img }}" hint-placeholder-val="{{ true }}"><img src="{{ p.img }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></sc-if>
+                <sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,#E7E0D0 0 7px,#DED6C4 7px 14px);display:flex;align-items:center;justify-content:center;padding:10px"><span style="font:400 9.5px/1.5 ui-monospace,Menlo,monospace;color:#8A8271;text-align:center">{{ p.ph }}</span></div></sc-if>
+              </div>
+              <div style="font:400 13px/1.25 Newsreader,serif;color:#1E2A22;text-wrap:pretty">{{ p.name }}</div>
+              <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:600 12.5px/1 Archivo,sans-serif">{{ p.price }}</span><span style="font-size:11.5px;color:#2F5D3A;border:1px solid #2F5D3A;padding:3px 10px;border-radius:999px">Afegir</span></div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Producer colour as a spine down the card edge, so a mixed grid reads as visibly mixed without shouting. Editorial "Coneix" cards are woven into the flow at intervals, giving one farm a full story slot each visit.</div>
+<div class="dv-card" style="width:860px">
+  <div style="padding:16px 22px;display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid rgba(30,42,34,.1)">
+    <div><div style="font:500 24px/1 Newsreader,serif;color:#1E2A22">Verdures i horta</div><div style="font-size:11.5px;color:#6E6A5E;margin-top:5px">32 productes de 6 productors del massís</div></div>
+    <div style="display:flex;gap:6px;align-items:center">
+      <sc-for list="{{ dots }}" as="d" hint-placeholder-count="6"><span style="width:10px;height:10px;border-radius:50%;background: {{ d.color }}"></span></sc-for>
+      <span style="font-size:11.5px;color:#6E6A5E;margin-left:6px">6 productors en aquesta vista</span>
+    </div>
+  </div>
+  <div style="padding:20px 22px 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+    <sc-for list="{{ gridA }}" as="p" hint-placeholder-count="4">
+      <div style="background:#fff;border:1px solid rgba(30,42,34,.1);border-left:5px solid {{ p.color }};border-radius:4px 12px 12px 4px;overflow:hidden;display:flex;flex-direction:column">
+        <div style="aspect-ratio:1/1;background:#EDE7DA;position:relative">
+          <sc-if value="{{ p.img }}" hint-placeholder-val="{{ true }}"><img src="{{ p.img }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></sc-if>
+          <sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,#E7E0D0 0 7px,#DED6C4 7px 14px);display:flex;align-items:center;justify-content:center;padding:10px"><span style="font:400 9.5px/1.5 ui-monospace,Menlo,monospace;color:#8A8271;text-align:center">{{ p.ph }}</span></div></sc-if>
+        </div>
+        <div style="padding:11px 12px 13px;display:flex;flex-direction:column;gap:6px;flex:1">
+          <div style="font:600 9.5px/1 Archivo,sans-serif;letter-spacing:.08em;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color: {{ p.color }}">{{ p.prod }}</div>
+          <div style="font:400 14px/1.25 Newsreader,serif;color:#1E2A22;flex:1;text-wrap:pretty">{{ p.name }}</div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:600 13px/1 Archivo,sans-serif">{{ p.price }}</span><span style="background:#2F5D3A;color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;line-height:1">+</span></div>
+        </div>
+      </div>
+    </sc-for>
+    <div style="grid-column:span 2;background:#1E2A22;border-radius:12px;overflow:hidden;display:flex;color:#F6F2E9">
+      <div style="width:44%;background:#2b3a30"><img src="https://viriditas.farm/assets/garden24-e99db744d0e2adbea3b8c75e37a2893b676d9da5424bbe9d7a1c2a7365f7cba3.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+      <div style="flex:1;padding:16px 16px 14px;display:flex;flex-direction:column;gap:8px">
+        <span style="font:600 9.5px/1 Archivo,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#9CBFA6">Coneix el productor</span>
+        <div style="font:400 18px/1.2 Newsreader,serif">Viriditas, Parc Natural del Montseny</div>
+        <p style="margin:0;font-size:11.5px;line-height:1.55;color:rgba(246,242,233,.72);text-wrap:pretty">30 hectàrees d'agricultura regenerativa: verdures de temporada, gallines de pastura i cervesa feta amb cereals tradicionals catalans.</p>
+        <span style="margin-top:auto;font-size:11.5px;border-bottom:1px solid rgba(246,242,233,.4);align-self:flex-start;padding-bottom:2px">Llegir la història →</span>
+      </div>
+    </div>
+    <sc-for list="{{ gridB }}" as="p" hint-placeholder-count="2">
+      <div style="background:#fff;border:1px solid rgba(30,42,34,.1);border-left:5px solid {{ p.color }};border-radius:4px 12px 12px 4px;overflow:hidden;display:flex;flex-direction:column">
+        <div style="aspect-ratio:1/1;background:#EDE7DA;position:relative">
+          <sc-if value="{{ p.img }}" hint-placeholder-val="{{ true }}"><img src="{{ p.img }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></sc-if>
+          <sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,#E7E0D0 0 7px,#DED6C4 7px 14px);display:flex;align-items:center;justify-content:center;padding:10px"><span style="font:400 9.5px/1.5 ui-monospace,Menlo,monospace;color:#8A8271;text-align:center">{{ p.ph }}</span></div></sc-if>
+        </div>
+        <div style="padding:11px 12px 13px;display:flex;flex-direction:column;gap:6px;flex:1">
+          <div style="font:600 9.5px/1 Archivo,sans-serif;letter-spacing:.08em;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color: {{ p.color }}">{{ p.prod }}</div>
+          <div style="font:400 14px/1.25 Newsreader,serif;color:#1E2A22;flex:1;text-wrap:pretty">{{ p.name }}</div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:600 13px/1 Archivo,sans-serif">{{ p.price }}</span><span style="background:#2F5D3A;color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;line-height:1">+</span></div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="1d">
+<div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>The market as a market. A standing rail of all the farms on the left doubles as filter and directory; each product carries a stamped seal instead of a label; the basket is permanently grouped by who prepares it, so the multi-producer order is visible from the first item.</div>
+<div class="dv-card" style="width:860px;background:#F6F2E9">
+  <div style="display:flex;align-items:stretch">
+    <div style="width:186px;flex:none;background:#1E2A22;color:#F6F2E9;padding:18px 0 20px">
+      <div style="padding:0 16px 14px;font:500 17px/1.15 Newsreader,serif">Mercat del<br>Montseny</div>
+      <div style="padding:0 16px 10px;font:600 9px/1 Archivo,sans-serif;letter-spacing:.11em;text-transform:uppercase;color:#8FAF98">15 productors</div>
+      <sc-for list="{{ rail }}" as="r" hint-placeholder-count="12">
+        <div style="display:flex;align-items:center;gap:9px;padding:6px 16px">
+          <span style="width:8px;height:8px;border-radius:50%;flex:none;background: {{ r.color }}"></span>
+          <span style="font-size:11.5px;color:rgba(246,242,233,.86);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ r.name }}</span>
+          <span style="margin-left:auto;font-size:10px;color:rgba(246,242,233,.4)">{{ r.n }}</span>
+        </div>
+      </sc-for>
+      <div style="margin:14px 16px 0;padding-top:12px;border-top:1px solid rgba(246,242,233,.18);font-size:11px;line-height:1.5;color:rgba(246,242,233,.6)">Cicle 12 obert<br>Tanca dimecres 22 h</div>
+    </div>
+    <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+      <div style="padding:18px 20px 12px;display:flex;justify-content:space-between;align-items:baseline">
+        <div style="font:500 22px/1 Newsreader,serif;color:#1E2A22">Tot el que hi ha aquesta setmana</div>
+        <span style="font-size:11.5px;color:#6E6A5E">228 productes</span>
+      </div>
+      <div style="padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+        <sc-for list="{{ stalls }}" as="p" hint-placeholder-count="6">
+          <div style="background:#fff;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(30,42,34,.1)">
+            <div style="aspect-ratio:5/4;background:#EDE7DA;position:relative">
+              <sc-if value="{{ p.img }}" hint-placeholder-val="{{ true }}"><img src="{{ p.img }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></sc-if>
+              <sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,#E7E0D0 0 7px,#DED6C4 7px 14px);display:flex;align-items:center;justify-content:center;padding:10px"><span style="font:400 9.5px/1.5 ui-monospace,Menlo,monospace;color:#8A8271;text-align:center">{{ p.ph }}</span></div></sc-if>
+              <span style="position:absolute;left:9px;bottom:-13px;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 13px/1 Archivo,sans-serif;color:#fff;border:2.5px solid #fff;transform:rotate(-9deg);box-shadow:0 1px 4px rgba(30,42,34,.2);background: {{ p.color }}">{{ p.mono }}</span>
+            </div>
+            <div style="padding:18px 12px 13px;display:flex;flex-direction:column;gap:6px;flex:1">
+              <div style="font-size:10.5px;color:#6E6A5E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ p.prod }}</div>
+              <div style="font:400 14.5px/1.25 Newsreader,serif;color:#1E2A22;flex:1;text-wrap:pretty">{{ p.name }}</div>
+              <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:600 13px/1 Archivo,sans-serif">{{ p.price }}</span><span style="background:#C4572B;color:#fff;padding:5px 12px;border-radius:999px;font-size:11.5px">Afegir</span></div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin:18px 20px 20px;background:#fff;border:1px solid rgba(30,42,34,.12);border-radius:12px;padding:14px 16px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:11px">
+          <span style="font:500 15px/1 Newsreader,serif;color:#1E2A22">La teva cistella</span>
+          <span style="font-size:11px;color:#6E6A5E">3 productors · 1 recollida · 1 factura</span>
+        </div>
+        <sc-for list="{{ basket }}" as="b" hint-placeholder-count="3">
+          <div style="display:flex;align-items:center;gap:9px;padding:7px 0;border-top:1px solid rgba(30,42,34,.08)">
+            <span style="width:18px;height:18px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font:700 8px/1 Archivo,sans-serif;color:#fff;background: {{ b.color }}">{{ b.mono }}</span>
+            <span style="font-size:11.5px;color:#3D4A40;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ b.line }}</span>
+            <span style="font:600 11.5px/1 Archivo,sans-serif;color:#1E2A22">{{ b.sum }}</span>
+          </div>
+        </sc-for>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:11px;border-top:1px solid rgba(30,42,34,.14)">
+          <span style="font:600 14px/1 Archivo,sans-serif;color:#1E2A22">Total 38,15 €</span>
+          <span style="background:#2F5D3A;color:#fff;padding:9px 18px;border-radius:999px;font-size:12.5px">Tramitar la comanda</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "build <a class="dv-oid" href="#1d">1d</a> out as the full prototype" · "<a class="dv-oid" href="#1c">1c</a> cards inside <a class="dv-oid" href="#1b">1b</a>'s shelf toggle" · "show me the producer profile and checkout for <a class="dv-oid" href="#1a">1a</a>"</p>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1000,&quot;height&quot;:900}}">
+const C = h => `oklch(0.55 0.115 ${h})`;
+const P = {
+  viriditas: { name: "Viriditas", mono: "V", h: 145, short: "Verdures, ous de pastura i cervesa de cereals catalans · 30 ha al Parc Natural", cert: "Regeneratiu" },
+  castanya:  { name: "Castanya de Viladrau", mono: "CV", h: 55, short: "Producció de castanya del territori, elaborats i visites guiades", cert: "Fet a Osona" },
+  moli:      { name: "Molí Salar d'Arbúcies", mono: "MS", h: 105, short: "Oli d'oliva verge extra de varietat autòctona de la Vall d'Arbúcies", cert: "CCPAE" },
+  berries:   { name: "Red Passion Berries", mono: "RP", h: 15, short: "Gerds ecològics i melmelades artesanes d'obrador propi", cert: "Girona Excel·lent" },
+  esquellot: { name: "l'Esquellot del Montseny", mono: "EM", h: 250, short: "Granja familiar d'ovelles latxes: formatges artesans i xai lletó", cert: "Llet crua" },
+  melmont:   { name: "Mel del Montseny", mono: "MM", h: 80, short: "Família d'apicultors, mel extreta directament dels ruscos", cert: "Artesana" },
+  erms:      { name: "Mel dels erms", mono: "ME", h: 68, short: "Productes del rusc: mel, pol·len, pròpolis i hidromels", cert: "Proximitat" },
+  baluard:   { name: "Baluard Celler", mono: "BC", h: 340, short: "Celler al Montseny, vinyes a 750 m i criança en bucois de castanyer", cert: "Vi de finca" },
+  cadell:    { name: "Mas Can Cadell", mono: "MC", h: 162, short: "Horta ecològica biointensiva, mínima llaurada i sense maquinària pesada", cert: "CCPAE" },
+  cor:       { name: "Cor del Montseny", mono: "CM", h: 300, short: "Artesania culinària amb plantes salvatges i cultivades del massís", cert: "Ecològic" },
+  debosc:    { name: "deBosc", mono: "dB", h: 195, short: "Agricultors i recol·lectors, elaborats amb plantes silvestres", cert: "Silvestre" },
+  agro:      { name: "Agroblanch", mono: "AB", h: 25, short: "Xai d'ovella ripollesa, 20 generacions al territori", cert: "Ripollesa" },
+  muns:      { name: "Josep Muns Crivillé", mono: "JM", h: 40, short: "Vedella Angus criada a la finca amb cereals i bagàs del Montseny", cert: "Angus" },
+  casanova:  { name: "Casa Nova de Figuerola", mono: "CN", h: 8, short: "Lots de vedella Angus criada a Seva", cert: "Seva" },
+  berta:     { name: "Berta Cordomí Duatis", mono: "BD", h: 128, short: "Horta a Can Farres de Mosqueroles, verdures de temporada", cert: "Temporada" }
+};
+const IMG = {
+  boxL: "https://viriditas.farm/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBb1VCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--71df87e77e2926a0f033b92b1bff1fb82d570358/BoxSquare.jpg",
+  eggs: "https://viriditas.farm/assets/Chickencoop-3fe1ab8d23a3c3a02a7503123da73ed64e508d1436f3ce6c35301f40d80d2900.jpg",
+  beer: "https://viriditas.farm/assets/Cosechadora-b290ebf2fde993e12a82b8b925793c20e2f986db8fe590178f7326a589eb436f.jpg",
+  garden: "https://viriditas.farm/assets/garden24-e99db744d0e2adbea3b8c75e37a2893b676d9da5424bbe9d7a1c2a7365f7cba3.jpg",
+  cast: "https://castanyadeviladrau.cat/assets/images/products/packs/lot-castanyes-essencials.jpeg",
+  dolcos: "https://castanyadeviladrau.cat/assets/images/products/packs/lot-dolcos-de-castanya.png",
+  cremes: "https://castanyadeviladrau.cat/assets/images/products/packs/lot-cremes-del-bosc.jpeg",
+  mels: "https://castanyadeviladrau.cat/assets/images/products/packs/lot-mels-del-territori.png",
+  begudes: "https://castanyadeviladrau.cat/assets/images/products/packs/lot-begudes-del-montseny.jpeg",
+  elab: "https://castanyadeviladrau.cat/assets/images/products/packs/lot-sabors-del-montseny.jpeg"
+};
+const price = n => n.toFixed(2).replace(".", ",") + " €";
+function item(prodKey, name, p, img, ph) {
+  const pr = P[prodKey];
+  return { name, prod: pr.name, mono: pr.mono, color: C(pr.h), price: price(p),
+           img: img || null, noImg: !img, ph: ph || "foto de producte" };
+}
+
+class Component extends DCLogic {
+  renderVals() {
+    const grid = [
+      item("viriditas", "Cistella de Verdures gran", 20.8, IMG.boxL),
+      item("castanya", "Castanya fresca gran 500 g", 6.5, IMG.cast),
+      item("moli", "Oli d'Oliva Verge Extra OVA Verd", 10.35, null, "ampolla d'oli\n500 ml"),
+      item("melmont", "Mel de Romaní 500 g", 9.75, null, "pot de mel\nsobre fusta"),
+      item("viriditas", "Mitja Dotzena d'Ous", 3.4, IMG.eggs),
+      item("esquellot", "Formatge trevolet 250 g", 7, null, "formatge\nd'ovella"),
+      item("castanya", "Marron Glacé 200 g", 12.5, IMG.dolcos),
+      item("baluard", "Baluard 2023 · Chardonnay", 16, null, "ampolla\nde vi blanc")
+    ];
+    const shelf = (key, cert, items) => ({
+      name: P[key].name, mono: P[key].mono, short: P[key].short, cert,
+      color: C(P[key].h), tint: `oklch(0.93 0.035 ${P[key].h})`, items
+    });
+    const shelves = [
+      shelf("castanya", P.castanya.cert, [
+        item("castanya", "Castanya fresca gran 500 g", 6.5, IMG.cast),
+        item("castanya", "Crema de castanya 230 g", 6, IMG.cremes),
+        item("castanya", "Mel de castanyer 500 g", 8.5, IMG.mels),
+        item("castanya", "Cervesa de castanya", 4, IMG.begudes)
+      ]),
+      shelf("viriditas", P.viriditas.cert, [
+        item("viriditas", "Cistella de Verdures gran", 20.8, IMG.boxL),
+        item("viriditas", "Mitja Dotzena d'Ous", 3.4, IMG.eggs),
+        item("viriditas", "Cervoisa Pagésa 355 ml", 3.5, IMG.beer),
+        item("viriditas", "Kombucha d'Esbarzer i Ortiga", 4, null, "ampolla de\nkombucha")
+      ]),
+      shelf("cor", P.cor.cert, [
+        item("cor", "Crackers de farigola 140 g", 5, null, "crackers\nen bossa"),
+        item("cor", "Galetes de saüc 125 g", 4.5, null, "galetes\nartesanes"),
+        item("cor", "Paté vegetal d'herbes 125 g", 4.6, null, "pot de paté"),
+        item("cor", "Refresc de flors de saüc 200 ml", 5, null, "ampolla de\nconcentrat")
+      ])
+    ];
+    const gridA = [
+      item("cadell", "Tomàquet (varis) · kg", 5.72, null, "tomàquets\nde varietat"),
+      item("cadell", "Mèsclum d'enciams 300 g", 3.2, null, "mèsclum\nen bossa"),
+      item("viriditas", "Cistella de Verdures petita", 12.48, IMG.boxL),
+      item("berta", "Cistella de verdures", 15, IMG.garden)
+    ];
+    const gridB = [
+      item("cadell", "Carbassa cacauet · kg", 2.5, null, "carbassa\ncacauet"),
+      item("cadell", "Col kale · manat", 2.8, null, "manat\nde kale")
+    ];
+    const stalls = [
+      item("castanya", "Licor de castanya 50 cl", 22, IMG.elab),
+      item("erms", "Mel de castanyer 1 kg", 19, null, "pot de mel\n1 kg"),
+      item("debosc", "Torró d'avellanes 300 g", 15, null, "torró\nartesà"),
+      item("moli", "Oli d'Oliva OVA Fruitat", 10.35, null, "ampolla d'oli"),
+      item("berries", "Melmelada de gerds", 6.5, null, "pot de\nmelmelada"),
+      item("agro", "Carn de xai ripollesa · kg", 17, null, "tall de xai")
+    ];
+    const railKeys = ["agro","baluard","berta","casanova","castanya","cadell","cor","debosc","esquellot","erms","melmont","moli","berries","muns","viriditas"];
+    const counts = { agro:2, baluard:1, berta:1, casanova:2, castanya:31, cadell:32, cor:15, debosc:18, esquellot:3, erms:18, melmont:18, moli:4, berries:3, muns:1, viriditas:6 };
+    const rail = railKeys.map(k => ({ name: P[k].name, color: C(P[k].h), n: counts[k] }));
+    const dots = ["cadell","viriditas","berta","cor","moli","debosc"].map(k => ({ color: C(P[k].h) }));
+    const basket = [
+      { mono: P.castanya.mono, color: C(P.castanya.h), line: "Castanya de Viladrau · 2 articles", sum: "18,50 €" },
+      { mono: P.viriditas.mono, color: C(P.viriditas.h), line: "Viriditas · 1 cistella gran", sum: "20,80 €" },
+      { mono: P.moli.mono, color: C(P.moli.h), line: "Molí Salar d'Arbúcies · 1 oli", sum: "10,35 €" }
+    ];
+    return { grid, shelves, gridA, gridB, stalls, rail, dots, basket };
+  }
+}
+
+</script>
+</body>
+</html>
